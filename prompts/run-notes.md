@@ -1,0 +1,1 @@
+To use it day-to-day, serve the folder with any static server (e.g. VS Code's Live Server, or python -m http.server) rather than opening the HTML files directly, since the JSON seeding relies on fetch.

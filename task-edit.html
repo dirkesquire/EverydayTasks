@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Edit Task</h1>
+    <nav class="app-nav">
+      <a href="task-dashboard.html">Dashboard</a>
+      <a href="task-ranker.html">Ranker</a>
+    </nav>
+  </header>
+
+  <main>
+    <div id="save-banner" class="status-banner" style="margin-bottom:14px;" hidden>Saved</div>
+
+    <form class="task-form" id="task-form">
+      <div class="field">
+        <label for="name">Task name</label>
+        <input type="text" id="name" required />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="due-date">Due date</label>
+          <input type="datetime-local" id="due-date" />
+        </div>
+        <div class="field">
+          <label for="done-checkbox">Status</label>
+          <label style="display:flex; align-items:center; gap:8px; font-weight:400; font-size:14px; color:var(--text);">
+            <input type="checkbox" id="done-checkbox" /> Marked as done
+          </label>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Preparation needed</legend>
+        <div class="field-row">
+          <div class="field">
+            <label for="prep-value">How far ahead (number)</label>
+            <input type="number" id="prep-value" placeholder="e.g. 14" />
+          </div>
+          <div class="field">
+            <label for="prep-unit">Unit</label>
+            <select id="prep-unit">
+              <option value="hour">Hours</option>
+              <option value="day" selected>Days</option>
+              <option value="week">Weeks</option>
+              <option value="month">Months</option>
+            </select>
+          </div>
+        </div>
+        <div id="prep-preview" style="font-size:13px; color:var(--text-muted);"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Reminders</legend>
+        <div id="reminders-list"></div>
+        <button type="button" class="btn" id="add-reminder">+ Add reminder</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Rewards</legend>
+        <div id="rewards-list"></div>
+        <button type="button" class="btn" id="add-reward">+ Add reward</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Costs</legend>
+        <div id="costs-list"></div>
+        <button type="button" class="btn" id="add-cost">+ Add cost</button>
+      </fieldset>
+
+      <div class="field">
+        <label for="notes">Notes</label>
+        <textarea id="notes"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-danger" id="delete-btn">Delete task</button>
+        <div class="right">
+          <a class="btn" href="task-dashboard.html">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save task</button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <template id="reminder-row-template">
+    <div class="repeat-row" data-row>
+      <input type="datetime-local" data-field="reminder" />
+      <button type="button" class="btn-ghost" data-remove title="Remove">Remove</button>
+    </div>
+  </template>
+
+  <template id="reward-row-template">
+    <div class="repeat-row" data-row>
+      <select data-field="type">
+        <option value="financial">Financial</option>
+        <option value="other">Other</option>
+      </select>
+      <input type="text" data-field="value" placeholder="e.g. 50.00 or 'A day off'" />
+      <button type="button" class="btn-ghost" data-remove title="Remove">Remove</button>
+    </div>
+  </template>
+
+  <template id="cost-row-template">
+    <div class="repeat-row" data-row>
+      <select data-field="type">
+        <option value="financial">Financial</option>
+        <option value="other">Other</option>
+      </select>
+      <input type="text" data-field="value" placeholder="e.g. 20.00 or '2 hours'" />
+      <button type="button" class="btn-ghost" data-remove title="Remove">Remove</button>
+    </div>
+  </template>
+
+  <script src="js/dates.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/task-edit.js"></script>
+</body>
+</html>

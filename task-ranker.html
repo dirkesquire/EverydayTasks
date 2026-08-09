@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task Ranker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Task Ranker</h1>
+    <nav class="app-nav">
+      <a href="task-dashboard.html">Dashboard</a>
+      <a href="task-ranker.html" class="active">Ranker</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="ranker-intro">Compare two tasks at a time across four criteria. Scores accumulate as you go — rankings update live below.</p>
+    <div class="toolbar" style="justify-content:center;">
+      <button class="btn" id="reset-btn">Reset scores</button>
+      <button class="btn btn-primary" id="skip-btn">Skip this pair</button>
+    </div>
+    <div id="ranker-progress" class="ranker-progress"></div>
+
+    <div id="matchup-area"></div>
+    <div id="no-tasks" class="empty-state" hidden>Add at least two tasks on the dashboard to start ranking.</div>
+
+    <table class="rankings-table" id="rankings-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Task</th>
+          <th>Importance</th>
+          <th>Urgency</th>
+          <th>Financial Reward</th>
+          <th>Financial Cost</th>
+          <th>Total score</th>
+        </tr>
+      </thead>
+      <tbody id="rankings-body"></tbody>
+    </table>
+  </main>
+
+  <script src="js/dates.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/task-ranker.js"></script>
+</body>
+</html>

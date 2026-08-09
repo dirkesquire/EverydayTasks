@@ -1,0 +1,182 @@
+[
+  {
+    "Id": "b1000000-0000-4000-8000-000000000001",
+    "Name": "Renew passport",
+    "DueDate": "2026-08-25T00:00:00Z",
+    "PreparationNeeded": { "value": -14, "unit": "day" },
+    "Reminders": ["2026-08-11T09:00:00Z", "2026-08-18T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000001", "RewardType": "other", "Value": "Peace of mind before the trip" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000001", "CostType": "financial", "Value": "85.00" }
+    ],
+    "Notes": "Passport office requires an appointment; book at least 2 weeks ahead.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-07-01T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000002",
+    "Name": "Pay credit card bill",
+    "DueDate": "2026-08-15T00:00:00Z",
+    "PreparationNeeded": { "value": -1, "unit": "day" },
+    "Reminders": ["2026-08-14T08:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000002", "RewardType": "financial", "Value": "Avoid 25.00 late fee" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000002", "CostType": "financial", "Value": "412.60" }
+    ],
+    "Notes": "Autopay is off this month, pay manually via the banking app.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-07-20T12:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000003",
+    "Name": "Dentist checkup",
+    "DueDate": "2026-07-20T00:00:00Z",
+    "PreparationNeeded": { "value": -1, "unit": "day" },
+    "Reminders": ["2026-07-19T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000003", "RewardType": "other", "Value": "Healthier teeth, less anxiety later" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000003", "CostType": "financial", "Value": "60.00" }
+    ],
+    "Notes": "Overdue - need to call and reschedule, missed the original slot.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-06-15T10:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000004",
+    "Name": "Submit tax return",
+    "DueDate": "2026-10-15T00:00:00Z",
+    "PreparationNeeded": { "value": -30, "unit": "day" },
+    "Reminders": ["2026-09-15T09:00:00Z", "2026-10-01T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000004", "RewardType": "financial", "Value": "Possible refund of ~600.00" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000004", "CostType": "other", "Value": "A weekend of paperwork" }
+    ],
+    "Notes": "Gather receipts from freelance work before starting.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-07-05T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000005",
+    "Name": "Buy Mom's birthday gift",
+    "DueDate": "2026-08-14T00:00:00Z",
+    "PreparationNeeded": { "value": -5, "unit": "day" },
+    "Reminders": ["2026-08-09T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000005", "RewardType": "other", "Value": "Mom is happy, family harmony" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000005", "CostType": "financial", "Value": "75.00" }
+    ],
+    "Notes": "She mentioned wanting a new gardening set.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-08-01T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000006",
+    "Name": "Car service / oil change",
+    "DueDate": "2026-09-05T00:00:00Z",
+    "PreparationNeeded": { "value": -3, "unit": "day" },
+    "Reminders": ["2026-09-01T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000006", "RewardType": "other", "Value": "Reliable car, avoid breakdown" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000006", "CostType": "financial", "Value": "180.00" }
+    ],
+    "Notes": "Book the shop early, they fill up fast in September.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-07-25T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000007",
+    "Name": "Gym membership renewal",
+    "DueDate": "2026-08-31T00:00:00Z",
+    "PreparationNeeded": { "value": -7, "unit": "day" },
+    "Reminders": ["2026-08-24T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000007", "RewardType": "other", "Value": "Uninterrupted training routine" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000007", "CostType": "financial", "Value": "45.00" }
+    ],
+    "Notes": "Ask about the annual plan discount before renewing monthly.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-07-28T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000008",
+    "Name": "Finish online course module",
+    "DueDate": null,
+    "PreparationNeeded": null,
+    "Reminders": [],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000008", "RewardType": "other", "Value": "New certification, career growth" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000008", "CostType": "other", "Value": "6 hours of study time" }
+    ],
+    "Notes": "No hard deadline, but shouldn't let it drag on too long.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-06-01T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000009",
+    "Name": "Clean out garage",
+    "DueDate": "2026-06-01T00:00:00Z",
+    "PreparationNeeded": { "value": -2, "unit": "day" },
+    "Reminders": [],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000009", "RewardType": "other", "Value": "Usable storage space, less clutter stress" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000009", "CostType": "other", "Value": "A full Saturday" }
+    ],
+    "Notes": "Donated old tools to the neighbor, felt great to finish.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": "2026-06-01T16:30:00Z",
+    "UtcCreated": "2026-05-15T09:00:00Z",
+    "UtcDeleted": null
+  },
+  {
+    "Id": "b1000000-0000-4000-8000-000000000010",
+    "Name": "Plan weekend trip",
+    "DueDate": "2026-08-20T00:00:00Z",
+    "PreparationNeeded": { "value": -10, "unit": "day" },
+    "Reminders": ["2026-08-13T09:00:00Z"],
+    "Rewards": [
+      { "Id": "r1000000-0000-4000-8000-000000000010", "RewardType": "other", "Value": "Relaxing getaway, quality time with family" }
+    ],
+    "Cost": [
+      { "Id": "c1000000-0000-4000-8000-000000000010", "CostType": "financial", "Value": "350.00" }
+    ],
+    "Notes": "Check cabin availability before booking flights.",
+    "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
+    "UtcDone": null,
+    "UtcCreated": "2026-07-30T09:00:00Z",
+    "UtcDeleted": null
+  }
+]
