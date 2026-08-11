@@ -5,9 +5,9 @@
     { key: "Importance", label: "Importance" },
     { key: "Urgency", label: "Urgency" },
     { key: "FinancialReward", label: "Financial Reward" },
-    { key: "FinancialCost", label: "Financial Cost" },
+    { key: "FinancialConsequence", label: "Financial Consequence" },
   ];
-  const SCORES_KEY = "tasktracker.rankerScores";
+  const SCORES_KEY = "tasktracker.rankerScores.v2";
 
   const matchupArea = document.getElementById("matchup-area");
   const noTasksEl = document.getElementById("no-tasks");
@@ -31,7 +31,7 @@
 
   function ensureScore(taskId) {
     if (!scores[taskId]) {
-      scores[taskId] = { Importance: 0, Urgency: 0, FinancialReward: 0, FinancialCost: 0 };
+      scores[taskId] = { Importance: 0, Urgency: 0, FinancialReward: 0, FinancialConsequence: 0 };
     }
     return scores[taskId];
   }
@@ -47,15 +47,44 @@
     return { a, b, decided: {} };
   }
 
+  function buildDetailGroup(label, items, typeField) {
+    const group = document.createElement("div");
+    group.className = "task-detail-group";
+
+    const heading = document.createElement("div");
+    heading.className = "task-detail-label";
+    heading.textContent = label;
+    group.appendChild(heading);
+
+    if (!items.length) {
+      const empty = document.createElement("div");
+      empty.className = "task-detail-empty";
+      empty.innerHTML = "&nbsp;";
+      group.appendChild(empty);
+      return group;
+    }
+
+    const list = document.createElement("ul");
+    list.className = "task-detail-list";
+    for (const item of items) {
+      const li = document.createElement("li");
+      // const pill = document.createElement("span");
+      // pill.className = `pill pill-${item[typeField]}`;
+      // pill.textContent = item[typeField] === "financial" ? "Financial" : "Other";
+      // li.appendChild(pill);
+      li.appendChild(document.createTextNode(item.Value));
+      list.appendChild(li);
+    }
+    group.appendChild(list);
+    return group;
+  }
+
   function taskSummary(task) {
-    const div = document.createElement("div");
-    div.style.fontSize = "12px";
-    div.style.color = "var(--text-muted)";
-    const bits = [];
-    if (task.Rewards.length) bits.push(`${task.Rewards.length} reward${task.Rewards.length > 1 ? "s" : ""}`);
-    if (task.Cost.length) bits.push(`${task.Cost.length} cost${task.Cost.length > 1 ? "s" : ""}`);
-    div.textContent = bits.join(" · ") || "No rewards/costs recorded";
-    return div;
+    const wrap = document.createElement("div");
+    wrap.className = "task-detail-groups";
+    wrap.appendChild(buildDetailGroup("Rewards", task.Rewards, "RewardType"));
+    wrap.appendChild(buildDetailGroup("Consequences", task.Consequences, "Consequence"));
+    return wrap;
   }
 
   function renderMatchup() {
@@ -87,7 +116,7 @@
     card.className = "matchup-card is-clickable";
     card.title = "Click to edit this task";
     card.addEventListener("click", () => {
-      window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}`;
+      window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}&from=ranker`;
     });
     const h3 = document.createElement("h3");
     h3.textContent = task.Name || "(untitled task)";
@@ -185,7 +214,7 @@
         <td>${row.s.Importance}</td>
         <td>${row.s.Urgency}</td>
         <td>${row.s.FinancialReward}</td>
-        <td>${row.s.FinancialCost}</td>
+        <td>${row.s.FinancialConsequence}</td>
         <td><strong>${row.total}</strong></td>
       `;
       rankingsBody.appendChild(tr);

@@ -19,20 +19,20 @@ Pages:
 - task-dashboard.html:
     lists tasks sorted by due date, color-coded date badges, reward/cost/reminder pill counts, "show completed" toggle, add-task button, click-through to edit.
 - task-edit.html
-    full form: name, due date, done toggle, preparation-needed (value+unit → Intl.RelativeTimeFormat preview), and add/edit/remove rows for reminders, rewards, and costs; delete with confirmation.
+    full form: name, due date, done toggle, preparation-needed (value+unit → Intl.RelativeTimeFormat preview), and add/edit/remove rows for reminders, rewards, and consequences; delete with confirmation.
     
     For editting a task. 
     Can add/edit/remove reminders
     Can add/edit/remove rewards
-    Can add/edit/remove costs
+    Can add/edit/remove consequences
 
 - task-ranker.html
     A tool for helping to ranking tasks against each other
-    Create a UI to show two tasks at a time and ask them to compare them by: Importance, Urgency, Financial Reward, Financial Cost
+    Create a UI to show two tasks at a time and ask them to compare them by: Importance, Urgency, Financial Reward, Financial Consequence
 
     click on the task to edit
 
-    random head-to-head matchups of two tasks, judged one criterion at a time (Importance, Urgency, Financial Reward, Financial Cost) with a win/tie scoring system persisted in localStorage, live rankings table below.
+    random head-to-head matchups of two tasks, judged one criterion at a time (Importance, Urgency, Financial Reward, Financial Consequence) with a win/tie scoring system persisted in localStorage, live rankings table below.
 
 
 
@@ -48,7 +48,7 @@ Models:
     Preparation Needed: Intl.RelativeTimeFormat
     Reminders: array of datetime
     Rewards: array of Reward
-    Cost: array of Cost
+    Consequences: array of Consequence
     Notes: string
     UserId: UUID
     UtcDone: datetime
@@ -59,11 +59,13 @@ Models:
     Id: UUID
     RewardType: financial, other
     Value: string
+    UtcLastSorted: datetime
     
-- Cost:
+- Consequence:
     Id: UUID
-    CostType: financial, other
+    Consequence: financial, other
     Value: string
+    UtcLastSorted: datetime
 
 <task>
 Create the webpages (task-dashboard.html, edit-task.html, task-ranker.html)

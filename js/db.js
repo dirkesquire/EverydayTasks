@@ -67,7 +67,7 @@ const DB = (() => {
       PreparationNeeded: null,
       Reminders: [],
       Rewards: [],
-      Cost: [],
+      Consequences: [],
       Notes: "",
       UserId: user ? user.Id : null,
       UtcDone: null,

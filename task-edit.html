@@ -16,6 +16,7 @@
   </header>
 
   <main>
+    <a id="back-link" class="btn" href="task-dashboard.html" style="display:inline-block; margin-bottom:14px;">&larr; Back</a>
     <div id="save-banner" class="status-banner" style="margin-bottom:14px;" hidden>Saved</div>
 
     <form class="task-form" id="task-form">
@@ -55,6 +56,7 @@
           </div>
         </div>
         <div id="prep-preview" style="font-size:13px; color:var(--text-muted);"></div>
+        <button type="button" class="btn" id="add-prep-reminder" style="margin-top:10px;">+ Add reminder at prep time</button>
       </fieldset>
 
       <fieldset>
@@ -64,15 +66,27 @@
       </fieldset>
 
       <fieldset>
-        <legend>Rewards</legend>
-        <div id="rewards-list"></div>
-        <button type="button" class="btn" id="add-reward">+ Add reward</button>
-      </fieldset>
-
-      <fieldset>
-        <legend>Costs</legend>
-        <div id="costs-list"></div>
-        <button type="button" class="btn" id="add-cost">+ Add cost</button>
+        <legend>Rewards vs. Consequences</legend>
+        <table class="rewards-consequences-table">
+          <thead>
+            <tr>
+              <th>Rewards (of doing this task)</th>
+              <th>Consequences (of not doing this task)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div id="rewards-list"></div>
+                <button type="button" class="btn" id="add-reward">+ Add reward</button>
+              </td>
+              <td>
+                <div id="consequences-list"></div>
+                <button type="button" class="btn" id="add-consequence">+ Add consequence</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </fieldset>
 
       <div class="field">
@@ -83,7 +97,7 @@
       <div class="form-actions">
         <button type="button" class="btn btn-danger" id="delete-btn">Delete task</button>
         <div class="right">
-          <a class="btn" href="task-dashboard.html">Cancel</a>
+          <a id="cancel-link" class="btn" href="task-dashboard.html">Cancel</a>
           <button type="submit" class="btn btn-primary">Save task</button>
         </div>
       </div>
@@ -93,7 +107,15 @@
   <template id="reminder-row-template">
     <div class="repeat-row" data-row>
       <input type="datetime-local" data-field="reminder" />
-      <button type="button" class="btn-ghost" data-remove title="Remove">Remove</button>
+      <button type="button" class="btn-ghost btn-icon" data-remove title="Remove" aria-label="Remove">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h18" />
+          <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
+          <path d="M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+        </svg>
+      </button>
     </div>
   </template>
 
@@ -104,18 +126,34 @@
         <option value="other">Other</option>
       </select>
       <input type="text" data-field="value" placeholder="e.g. 50.00 or 'A day off'" />
-      <button type="button" class="btn-ghost" data-remove title="Remove">Remove</button>
+      <button type="button" class="btn-ghost btn-icon" data-remove title="Remove" aria-label="Remove">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h18" />
+          <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
+          <path d="M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+        </svg>
+      </button>
     </div>
   </template>
 
-  <template id="cost-row-template">
+  <template id="consequence-row-template">
     <div class="repeat-row" data-row>
       <select data-field="type">
         <option value="financial">Financial</option>
         <option value="other">Other</option>
       </select>
-      <input type="text" data-field="value" placeholder="e.g. 20.00 or '2 hours'" />
-      <button type="button" class="btn-ghost" data-remove title="Remove">Remove</button>
+      <input type="text" data-field="value" placeholder="e.g. 'Lose 20.00 deposit' or 'Miss the deadline'" />
+      <button type="button" class="btn-ghost btn-icon" data-remove title="Remove" aria-label="Remove">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h18" />
+          <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
+          <path d="M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6" />
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+        </svg>
+      </button>
     </div>
   </template>
 

@@ -8,8 +8,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000001", "RewardType": "other", "Value": "Peace of mind before the trip" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000001", "CostType": "financial", "Value": "85.00" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000001", "Consequence": "financial", "Value": "Lose the non-refundable trip deposit (~1200.00) if the passport isn't ready in time" }
     ],
     "Notes": "Passport office requires an appointment; book at least 2 weeks ahead.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -26,8 +26,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000002", "RewardType": "financial", "Value": "Avoid 25.00 late fee" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000002", "CostType": "financial", "Value": "412.60" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000002", "Consequence": "financial", "Value": "25.00 late fee plus interest starts accruing on the balance" }
     ],
     "Notes": "Autopay is off this month, pay manually via the banking app.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -44,8 +44,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000003", "RewardType": "other", "Value": "Healthier teeth, less anxiety later" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000003", "CostType": "financial", "Value": "60.00" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000003", "Consequence": "other", "Value": "A minor issue could turn into a costly root canal if left untreated" }
     ],
     "Notes": "Overdue - need to call and reschedule, missed the original slot.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -62,8 +62,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000004", "RewardType": "financial", "Value": "Possible refund of ~600.00" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000004", "CostType": "other", "Value": "A weekend of paperwork" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000004", "Consequence": "financial", "Value": "Late-filing penalty starting at 150.00, plus interest" }
     ],
     "Notes": "Gather receipts from freelance work before starting.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -80,8 +80,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000005", "RewardType": "other", "Value": "Mom is happy, family harmony" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000005", "CostType": "financial", "Value": "75.00" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000005", "Consequence": "other", "Value": "Miss her birthday entirely and disappoint her" }
     ],
     "Notes": "She mentioned wanting a new gardening set.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -98,8 +98,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000006", "RewardType": "other", "Value": "Reliable car, avoid breakdown" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000006", "CostType": "financial", "Value": "180.00" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000006", "Consequence": "other", "Value": "Risk of a breakdown or costly engine damage on the road" }
     ],
     "Notes": "Book the shop early, they fill up fast in September.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -116,8 +116,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000007", "RewardType": "other", "Value": "Uninterrupted training routine" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000007", "CostType": "financial", "Value": "45.00" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000007", "Consequence": "financial", "Value": "Lose the current rate; a 50.00 rejoin fee applies if the membership lapses" }
     ],
     "Notes": "Ask about the annual plan discount before renewing monthly.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -134,8 +134,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000008", "RewardType": "other", "Value": "New certification, career growth" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000008", "CostType": "other", "Value": "6 hours of study time" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000008", "Consequence": "other", "Value": "Course access could expire, losing all progress made so far" }
     ],
     "Notes": "No hard deadline, but shouldn't let it drag on too long.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -152,8 +152,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000009", "RewardType": "other", "Value": "Usable storage space, less clutter stress" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000009", "CostType": "other", "Value": "A full Saturday" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000009", "Consequence": "other", "Value": "Clutter keeps piling up, no usable storage space" }
     ],
     "Notes": "Donated old tools to the neighbor, felt great to finish.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -170,8 +170,8 @@
     "Rewards": [
       { "Id": "r1000000-0000-4000-8000-000000000010", "RewardType": "other", "Value": "Relaxing getaway, quality time with family" }
     ],
-    "Cost": [
-      { "Id": "c1000000-0000-4000-8000-000000000010", "CostType": "financial", "Value": "350.00" }
+    "Consequences": [
+      { "Id": "n1000000-0000-4000-8000-000000000010", "Consequence": "financial", "Value": "Lose the 100.00 non-refundable cabin deposit" }
     ],
     "Notes": "Check cabin availability before booking flights.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",

@@ -30,7 +30,7 @@
       const card = document.createElement("div");
       card.className = "task-card" + (task.UtcDone ? " is-done" : "");
       card.addEventListener("click", () => {
-        window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}`;
+        window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}&from=dashboard`;
       });
 
       const main = document.createElement("div");
@@ -46,7 +46,7 @@
       const { financial, other } = sumRewards(task);
       if (financial) meta.appendChild(makePill(`${financial} financial reward${financial > 1 ? "s" : ""}`, "financial"));
       if (other) meta.appendChild(makePill(`${other} reward${other > 1 ? "s" : ""}`, "other"));
-      if (task.Cost.length) meta.appendChild(makePill(`${task.Cost.length} cost${task.Cost.length > 1 ? "s" : ""}`, "other"));
+      if (task.Consequences.length) meta.appendChild(makePill(`${task.Consequences.length} consequence${task.Consequences.length > 1 ? "s" : ""}`, "other"));
       if (task.Reminders.length) meta.appendChild(makePill(`${task.Reminders.length} reminder${task.Reminders.length > 1 ? "s" : ""}`, "other"));
       if (task.UtcDone) meta.appendChild(makePill("Done", "financial"));
       main.appendChild(meta);
@@ -72,7 +72,7 @@
   showDoneEl.addEventListener("change", render);
   addBtn.addEventListener("click", () => {
     const task = DB.createTask({ Name: "New task" });
-    window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}`;
+    window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}&from=dashboard`;
   });
 
   render();

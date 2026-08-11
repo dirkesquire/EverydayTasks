@@ -22,9 +22,16 @@
   const notesEl = document.getElementById("notes");
   const remindersListEl = document.getElementById("reminders-list");
   const rewardsListEl = document.getElementById("rewards-list");
-  const costsListEl = document.getElementById("costs-list");
+  const consequencesListEl = document.getElementById("consequences-list");
   const deleteBtn = document.getElementById("delete-btn");
   const saveBanner = document.getElementById("save-banner");
+  const backLink = document.getElementById("back-link");
+  const cancelLink = document.getElementById("cancel-link");
+
+  // Came here from the dashboard or the ranker? Send Back/Cancel/Delete there instead of always to the dashboard.
+  const backTarget = params.get("from") === "ranker" ? "task-ranker.html" : "task-dashboard.html";
+  backLink.href = backTarget;
+  cancelLink.href = backTarget;
 
   // datetime-local inputs work in local wall-clock time with no timezone,
   // so convert to/from ISO manually rather than via Date's UTC methods.
@@ -55,8 +62,8 @@
     rewardsListEl.innerHTML = "";
     (task.Rewards || []).forEach((r) => addRewardRow(r));
 
-    costsListEl.innerHTML = "";
-    (task.Cost || []).forEach((c) => addCostRow(c));
+    consequencesListEl.innerHTML = "";
+    (task.Consequences || []).forEach((c) => addConsequenceRow(c));
   }
 
   function updatePrepPreview() {
@@ -86,19 +93,44 @@
     rewardsListEl.appendChild(row);
   }
 
-  function addCostRow(cost) {
-    const tpl = document.getElementById("cost-row-template");
+  function addConsequenceRow(consequence) {
+    const tpl = document.getElementById("consequence-row-template");
     const row = tpl.content.firstElementChild.cloneNode(true);
-    row.querySelector('[data-field="type"]').value = cost?.CostType || "other";
-    row.querySelector('[data-field="value"]').value = cost?.Value || "";
-    row.dataset.id = cost?.Id || DB.uuid();
+    row.querySelector('[data-field="type"]').value = consequence?.Consequence || "other";
+    row.querySelector('[data-field="value"]').value = consequence?.Value || "";
+    row.dataset.id = consequence?.Id || DB.uuid();
     row.querySelector("[data-remove]").addEventListener("click", () => row.remove());
-    costsListEl.appendChild(row);
+    consequencesListEl.appendChild(row);
   }
 
   document.getElementById("add-reminder").addEventListener("click", () => addReminderRow(null));
   document.getElementById("add-reward").addEventListener("click", () => addRewardRow(null));
-  document.getElementById("add-cost").addEventListener("click", () => addCostRow(null));
+  document.getElementById("add-consequence").addEventListener("click", () => addConsequenceRow(null));
+
+  // Due date minus the preparation timespan, e.g. due date - 14 days.
+  function subtractPreparation(dueLocalValue, value, unit) {
+    const d = new Date(dueLocalValue);
+    switch (unit) {
+      case "hour": d.setHours(d.getHours() - value); break;
+      case "day": d.setDate(d.getDate() - value); break;
+      case "week": d.setDate(d.getDate() - value * 7); break;
+      case "month": d.setMonth(d.getMonth() - value); break;
+    }
+    return d.toISOString();
+  }
+
+  document.getElementById("add-prep-reminder").addEventListener("click", () => {
+    if (!dueDateEl.value) {
+      alert("Set a due date first.");
+      return;
+    }
+    const prepValue = parseInt(prepValueEl.value, 10);
+    if (!prepValue) {
+      alert("Set how far ahead preparation is needed first.");
+      return;
+    }
+    addReminderRow(subtractPreparation(dueDateEl.value, prepValue, prepUnitEl.value));
+  });
   prepValueEl.addEventListener("input", updatePrepPreview);
   prepUnitEl.addEventListener("change", updatePrepPreview);
 
@@ -108,7 +140,7 @@
       .filter(Boolean);
   }
 
-  function collectRewardsOrCosts(listEl, typeField) {
+  function collectItems(listEl, typeField) {
     return Array.from(listEl.querySelectorAll("[data-row]"))
       .map((row) => ({
         Id: row.dataset.id || DB.uuid(),
@@ -127,8 +159,8 @@
     const prepValue = parseInt(prepValueEl.value, 10);
     task.PreparationNeeded = prepValue ? { value: -Math.abs(prepValue), unit: prepUnitEl.value } : null;
     task.Reminders = collectReminders();
-    task.Rewards = collectRewardsOrCosts(rewardsListEl, "RewardType");
-    task.Cost = collectRewardsOrCosts(costsListEl, "CostType");
+    task.Rewards = collectItems(rewardsListEl, "RewardType");
+    task.Consequences = collectItems(consequencesListEl, "Consequence");
 
     DB.upsertTask(task);
     saveBanner.hidden = false;
@@ -138,7 +170,7 @@
   deleteBtn.addEventListener("click", () => {
     if (!confirm(`Delete "${task.Name || "this task"}"? This cannot be undone.`)) return;
     DB.softDeleteTask(task.Id);
-    window.location.href = "task-dashboard.html";
+    window.location.href = backTarget;
   });
 
   populateForm();

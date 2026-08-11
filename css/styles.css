@@ -107,6 +107,16 @@ main {
 }
 .btn-ghost:hover { color: var(--past); }
 
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-icon:hover { background: var(--past-bg); }
+
 .task-list {
   display: flex;
   flex-direction: column;
@@ -195,7 +205,9 @@ form.task-form {
 
 .field input,
 .field textarea,
-.field select {
+.field select,
+.repeat-row input,
+.repeat-row select {
   padding: 9px 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -203,6 +215,17 @@ form.task-form {
   font-family: inherit;
   background: var(--bg);
   color: var(--text);
+}
+
+.repeat-row select {
+  cursor: pointer;
+}
+
+.repeat-row input:focus,
+.repeat-row select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .field textarea { min-height: 80px; resize: vertical; }
@@ -232,6 +255,33 @@ fieldset legend {
 
 .repeat-row > * { flex: 1; min-width: 120px; }
 .repeat-row input[type="datetime-local"] { min-width: 200px; }
+.repeat-row select { flex: 0 0 120px; min-width: 0; }
+.repeat-row [data-remove] { flex: 0 0 auto; min-width: 0; }
+
+.rewards-consequences-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.rewards-consequences-table th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0 12px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rewards-consequences-table td {
+  vertical-align: top;
+  padding: 12px 12px 0;
+}
+
+.rewards-consequences-table td:first-child,
+.rewards-consequences-table th:first-child {
+  border-right: 1px solid var(--border);
+}
 
 .form-actions {
   display: flex;
@@ -292,6 +342,46 @@ fieldset legend {
 
 .matchup-card.is-clickable { cursor: pointer; }
 .matchup-card.is-clickable:hover { border-color: var(--accent); }
+
+.task-detail-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-detail-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.task-detail-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.task-detail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-detail-list li {
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.task-detail-list .pill { flex-shrink: 0; }
 
 .criteria-panel {
   margin-top: 18px;
