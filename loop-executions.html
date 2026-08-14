@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loop Executions</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>My Tasks</h1>
+    <nav class="app-nav">
+      <a href="task-dashboard.html">Dashboard</a>
+      <a href="task-ranker.html">Ranker</a>
+      <a href="task-ranker2.html">Drag Ranker</a>
+      <a href="loop-dashboard.html" class="active">Loops</a>
+    </nav>
+  </header>
+
+  <main>
+    <a class="btn" href="loop-dashboard.html" style="display:inline-block; margin-bottom:14px;">&larr; Back to Loops</a>
+
+    <div class="loop-header">
+      <div class="field">
+        <label for="loop-name">Loop name</label>
+        <input type="text" id="loop-name" />
+      </div>
+      <div class="field">
+        <label for="loop-notes">Loop notes</label>
+        <textarea id="loop-notes" placeholder="Notes about this loop..."></textarea>
+      </div>
+      <div class="row-actions">
+        <button class="btn btn-danger" id="delete-loop-btn">Delete loop</button>
+      </div>
+    </div>
+
+    <div class="loop-columns">
+      <div class="loop-col loop-col-list">
+        <div class="loop-col-header">
+          <h3>Executions</h3>
+          <button class="btn btn-primary" id="new-execution-btn">+ Log New</button>
+        </div>
+        <div id="executions-list" class="exec-list"></div>
+        <div id="executions-empty" class="task-detail-empty" hidden>No executions logged yet.</div>
+      </div>
+
+      <div class="loop-col loop-col-detail">
+        <div id="no-selection" class="task-detail-empty">Select an execution on the left, or log a new one.</div>
+        <div id="execution-detail" hidden>
+          <div class="exec-detail-header">
+            <span id="exec-date-label" class="date-badge date-normal"></span>
+            <button class="btn btn-danger" id="delete-exec-btn">Delete</button>
+          </div>
+
+          <div class="timer-panel">
+            <div class="timer-display" id="timer-display">0.00 h</div>
+            <button class="btn btn-primary" id="start-timer-btn">Start Timer</button>
+            <button class="btn btn-danger" id="stop-timer-btn" hidden>Stop Timer</button>
+          </div>
+
+          <div class="field">
+            <label for="exec-notes">Notes</label>
+            <textarea id="exec-notes" placeholder="What happened this run..."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="exec-notes-next">Notes for next loop</label>
+            <textarea id="exec-notes-next" placeholder="Anything to carry forward..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/dates.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/loop-executions.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loop Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>My Tasks</h1>
+    <nav class="app-nav">
+      <a href="task-dashboard.html">Dashboard</a>
+      <a href="task-ranker.html">Ranker</a>
+      <a href="task-ranker2.html">Drag Ranker</a>
+      <a href="loop-dashboard.html" class="active">Loops</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <h2 style="margin:0; font-size:16px;">Loops</h2>
+      <button class="btn btn-primary" id="add-loop-btn">+ New Loop</button>
+    </div>
+
+    <table class="rankings-table" id="loops-table">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name">Name</th>
+          <th class="sortable" data-sort="lastExecuted">Last Executed</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="loops-tbody"></tbody>
+    </table>
+    <div id="empty-state" class="empty-state" hidden>No loops yet. Create your first one.</div>
+  </main>
+
+  <script src="js/dates.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/loop-dashboard.js"></script>
+</body>
+</html>

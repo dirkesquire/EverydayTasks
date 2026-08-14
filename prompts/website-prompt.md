@@ -59,12 +59,14 @@ Models:
     Id: UUID
     RewardType: financial, other
     Value: string
+    Score: number
     UtcLastSorted: datetime
     
 - Consequence:
     Id: UUID
     Consequence: financial, other
     Value: string
+    Score: number
     UtcLastSorted: datetime
 
 <task>

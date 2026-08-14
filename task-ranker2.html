@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drag Ranker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Drag Ranker</h1>
+    <nav class="app-nav">
+      <a href="task-dashboard.html">Dashboard</a>
+      <a href="task-ranker.html">Ranker</a>
+      <a href="task-ranker2.html" class="active">Drag Ranker</a>
+      <a href="loop-dashboard.html">Loops</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tab-strip" role="tablist">
+      <button type="button" class="tab-btn active" role="tab" data-tab="Rewards" aria-selected="true">Rewards</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="Consequences" aria-selected="false">Consequences</button>
+    </div>
+
+    <section class="tab-panel" data-panel="Rewards" role="tabpanel">
+      <p class="ranker-intro">
+        Drag rows to re-order. The top row scores highest; the lowest ranked row scores 0.
+        Drag an unranked row into the list to start scoring it.
+      </p>
+
+      <h2 class="rank-heading">Ranked rewards</h2>
+      <div class="rank-table">
+        <div class="rank-row rank-header">
+          <span></span>
+          <span>Reward</span>
+          <span>Task</span>
+          <span class="rank-score-col">Score</span>
+          <span></span>
+        </div>
+        <div class="rank-zone" data-zone="ranked" data-collection="Rewards"></div>
+      </div>
+
+      <h2 class="rank-heading">Not yet ranked</h2>
+      <div class="rank-table">
+        <div class="rank-zone rank-zone-holding" data-zone="holding" data-collection="Rewards"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="Consequences" role="tabpanel" hidden>
+      <p class="ranker-intro">
+        Drag rows to re-order. The top row scores highest; the lowest ranked row scores 0.
+        Drag an unranked row into the list to start scoring it.
+      </p>
+
+      <h2 class="rank-heading">Ranked consequences</h2>
+      <div class="rank-table">
+        <div class="rank-row rank-header">
+          <span></span>
+          <span>Consequence</span>
+          <span>Task</span>
+          <span class="rank-score-col">Score</span>
+          <span></span>
+        </div>
+        <div class="rank-zone" data-zone="ranked" data-collection="Consequences"></div>
+      </div>
+
+      <h2 class="rank-heading">Not yet ranked</h2>
+      <div class="rank-table">
+        <div class="rank-zone rank-zone-holding" data-zone="holding" data-collection="Consequences"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/dates.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/task-ranker2.js"></script>
+</body>
+</html>

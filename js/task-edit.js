@@ -28,8 +28,9 @@
   const backLink = document.getElementById("back-link");
   const cancelLink = document.getElementById("cancel-link");
 
-  // Came here from the dashboard or the ranker? Send Back/Cancel/Delete there instead of always to the dashboard.
-  const backTarget = params.get("from") === "ranker" ? "task-ranker.html" : "task-dashboard.html";
+  // Came here from a ranker? Send Back/Cancel/Delete there instead of always to the dashboard.
+  const BACK_TARGETS = { ranker: "task-ranker.html", ranker2: "task-ranker2.html" };
+  const backTarget = BACK_TARGETS[params.get("from")] || "task-dashboard.html";
   backLink.href = backTarget;
   cancelLink.href = backTarget;
 
@@ -140,13 +141,22 @@
       .filter(Boolean);
   }
 
-  function collectItems(listEl, typeField) {
+  // The ranker owns UtcLastSorted/Score, so carry them across from the stored item rather
+  // than rebuilding rows from the form alone (which would silently reset every ranking).
+  function collectItems(listEl, typeField, existingItems) {
+    const rankingById = new Map((existingItems || []).map((item) => [item.Id, item]));
     return Array.from(listEl.querySelectorAll("[data-row]"))
-      .map((row) => ({
-        Id: row.dataset.id || DB.uuid(),
-        [typeField]: row.querySelector('[data-field="type"]').value,
-        Value: row.querySelector('[data-field="value"]').value.trim(),
-      }))
+      .map((row) => {
+        const id = row.dataset.id || DB.uuid();
+        const existing = rankingById.get(id);
+        return {
+          Id: id,
+          [typeField]: row.querySelector('[data-field="type"]').value,
+          Value: row.querySelector('[data-field="value"]').value.trim(),
+          UtcLastSorted: existing?.UtcLastSorted ?? null,
+          Score: existing?.Score ?? null,
+        };
+      })
       .filter((item) => item.Value);
   }
 
@@ -159,8 +169,8 @@
     const prepValue = parseInt(prepValueEl.value, 10);
     task.PreparationNeeded = prepValue ? { value: -Math.abs(prepValue), unit: prepUnitEl.value } : null;
     task.Reminders = collectReminders();
-    task.Rewards = collectItems(rewardsListEl, "RewardType");
-    task.Consequences = collectItems(consequencesListEl, "Consequence");
+    task.Rewards = collectItems(rewardsListEl, "RewardType", task.Rewards);
+    task.Consequences = collectItems(consequencesListEl, "Consequence", task.Consequences);
 
     DB.upsertTask(task);
     saveBanner.hidden = false;

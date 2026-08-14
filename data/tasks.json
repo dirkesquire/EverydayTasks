@@ -3,13 +3,31 @@
     "Id": "b1000000-0000-4000-8000-000000000001",
     "Name": "Renew passport",
     "DueDate": "2026-08-25T00:00:00Z",
-    "PreparationNeeded": { "value": -14, "unit": "day" },
-    "Reminders": ["2026-08-11T09:00:00Z", "2026-08-18T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -14,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-08-11T09:00:00Z",
+      "2026-08-18T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000001", "RewardType": "other", "Value": "Peace of mind before the trip" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000001",
+        "RewardType": "other",
+        "Value": "Peace of mind before the trip",
+        "UtcLastSorted": "2026-08-05T10:00:00Z",
+        "Score": 0
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000001", "Consequence": "financial", "Value": "Lose the non-refundable trip deposit (~1200.00) if the passport isn't ready in time" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000001",
+        "Consequence": "financial",
+        "Value": "Lose the non-refundable trip deposit (~1200.00) if the passport isn't ready in time",
+        "UtcLastSorted": "2026-08-06T09:00:00Z",
+        "Score": 0
+      }
     ],
     "Notes": "Passport office requires an appointment; book at least 2 weeks ahead.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -21,13 +39,30 @@
     "Id": "b1000000-0000-4000-8000-000000000002",
     "Name": "Pay credit card bill",
     "DueDate": "2026-08-15T00:00:00Z",
-    "PreparationNeeded": { "value": -1, "unit": "day" },
-    "Reminders": ["2026-08-14T08:00:00Z"],
+    "PreparationNeeded": {
+      "value": -1,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-08-14T08:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000002", "RewardType": "financial", "Value": "Avoid 25.00 late fee" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000002",
+        "RewardType": "financial",
+        "Value": "Avoid 25.00 late fee",
+        "UtcLastSorted": "2026-08-05T10:01:00Z",
+        "Score": 1
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000002", "Consequence": "financial", "Value": "25.00 late fee plus interest starts accruing on the balance" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000002",
+        "Consequence": "financial",
+        "Value": "25.00 late fee plus interest starts accruing on the balance",
+        "UtcLastSorted": "2026-08-06T09:01:00Z",
+        "Score": 1
+      }
     ],
     "Notes": "Autopay is off this month, pay manually via the banking app.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -39,13 +74,30 @@
     "Id": "b1000000-0000-4000-8000-000000000003",
     "Name": "Dentist checkup",
     "DueDate": "2026-07-20T00:00:00Z",
-    "PreparationNeeded": { "value": -1, "unit": "day" },
-    "Reminders": ["2026-07-19T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -1,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-07-19T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000003", "RewardType": "other", "Value": "Healthier teeth, less anxiety later" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000003",
+        "RewardType": "other",
+        "Value": "Healthier teeth, less anxiety later",
+        "UtcLastSorted": "2026-08-05T10:02:00Z",
+        "Score": 2
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000003", "Consequence": "other", "Value": "A minor issue could turn into a costly root canal if left untreated" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000003",
+        "Consequence": "other",
+        "Value": "A minor issue could turn into a costly root canal if left untreated",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Notes": "Overdue - need to call and reschedule, missed the original slot.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -57,13 +109,31 @@
     "Id": "b1000000-0000-4000-8000-000000000004",
     "Name": "Submit tax return",
     "DueDate": "2026-10-15T00:00:00Z",
-    "PreparationNeeded": { "value": -30, "unit": "day" },
-    "Reminders": ["2026-09-15T09:00:00Z", "2026-10-01T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -30,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-09-15T09:00:00Z",
+      "2026-10-01T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000004", "RewardType": "financial", "Value": "Possible refund of ~600.00" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000004",
+        "RewardType": "financial",
+        "Value": "Possible refund of ~600.00",
+        "UtcLastSorted": "2026-08-05T10:03:00Z",
+        "Score": 3
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000004", "Consequence": "financial", "Value": "Late-filing penalty starting at 150.00, plus interest" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000004",
+        "Consequence": "financial",
+        "Value": "Late-filing penalty starting at 150.00, plus interest",
+        "UtcLastSorted": "2026-08-06T09:02:00Z",
+        "Score": 2
+      }
     ],
     "Notes": "Gather receipts from freelance work before starting.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -75,13 +145,30 @@
     "Id": "b1000000-0000-4000-8000-000000000005",
     "Name": "Buy Mom's birthday gift",
     "DueDate": "2026-08-14T00:00:00Z",
-    "PreparationNeeded": { "value": -5, "unit": "day" },
-    "Reminders": ["2026-08-09T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -5,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-08-09T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000005", "RewardType": "other", "Value": "Mom is happy, family harmony" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000005",
+        "RewardType": "other",
+        "Value": "Mom is happy, family harmony",
+        "UtcLastSorted": "2026-08-05T10:04:00Z",
+        "Score": 4
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000005", "Consequence": "other", "Value": "Miss her birthday entirely and disappoint her" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000005",
+        "Consequence": "other",
+        "Value": "Miss her birthday entirely and disappoint her",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Notes": "She mentioned wanting a new gardening set.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -93,13 +180,30 @@
     "Id": "b1000000-0000-4000-8000-000000000006",
     "Name": "Car service / oil change",
     "DueDate": "2026-09-05T00:00:00Z",
-    "PreparationNeeded": { "value": -3, "unit": "day" },
-    "Reminders": ["2026-09-01T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -3,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-09-01T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000006", "RewardType": "other", "Value": "Reliable car, avoid breakdown" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000006",
+        "RewardType": "other",
+        "Value": "Reliable car, avoid breakdown",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000006", "Consequence": "other", "Value": "Risk of a breakdown or costly engine damage on the road" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000006",
+        "Consequence": "other",
+        "Value": "Risk of a breakdown or costly engine damage on the road",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Notes": "Book the shop early, they fill up fast in September.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -111,13 +215,30 @@
     "Id": "b1000000-0000-4000-8000-000000000007",
     "Name": "Gym membership renewal",
     "DueDate": "2026-08-31T00:00:00Z",
-    "PreparationNeeded": { "value": -7, "unit": "day" },
-    "Reminders": ["2026-08-24T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -7,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-08-24T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000007", "RewardType": "other", "Value": "Uninterrupted training routine" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000007",
+        "RewardType": "other",
+        "Value": "Uninterrupted training routine",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000007", "Consequence": "financial", "Value": "Lose the current rate; a 50.00 rejoin fee applies if the membership lapses" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000007",
+        "Consequence": "financial",
+        "Value": "Lose the current rate; a 50.00 rejoin fee applies if the membership lapses",
+        "UtcLastSorted": "2026-08-06T09:03:00Z",
+        "Score": 3
+      }
     ],
     "Notes": "Ask about the annual plan discount before renewing monthly.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -132,10 +253,22 @@
     "PreparationNeeded": null,
     "Reminders": [],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000008", "RewardType": "other", "Value": "New certification, career growth" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000008",
+        "RewardType": "other",
+        "Value": "New certification, career growth",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000008", "Consequence": "other", "Value": "Course access could expire, losing all progress made so far" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000008",
+        "Consequence": "other",
+        "Value": "Course access could expire, losing all progress made so far",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Notes": "No hard deadline, but shouldn't let it drag on too long.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -147,13 +280,28 @@
     "Id": "b1000000-0000-4000-8000-000000000009",
     "Name": "Clean out garage",
     "DueDate": "2026-06-01T00:00:00Z",
-    "PreparationNeeded": { "value": -2, "unit": "day" },
+    "PreparationNeeded": {
+      "value": -2,
+      "unit": "day"
+    },
     "Reminders": [],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000009", "RewardType": "other", "Value": "Usable storage space, less clutter stress" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000009",
+        "RewardType": "other",
+        "Value": "Usable storage space, less clutter stress",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000009", "Consequence": "other", "Value": "Clutter keeps piling up, no usable storage space" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000009",
+        "Consequence": "other",
+        "Value": "Clutter keeps piling up, no usable storage space",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Notes": "Donated old tools to the neighbor, felt great to finish.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -165,13 +313,30 @@
     "Id": "b1000000-0000-4000-8000-000000000010",
     "Name": "Plan weekend trip",
     "DueDate": "2026-08-20T00:00:00Z",
-    "PreparationNeeded": { "value": -10, "unit": "day" },
-    "Reminders": ["2026-08-13T09:00:00Z"],
+    "PreparationNeeded": {
+      "value": -10,
+      "unit": "day"
+    },
+    "Reminders": [
+      "2026-08-13T09:00:00Z"
+    ],
     "Rewards": [
-      { "Id": "r1000000-0000-4000-8000-000000000010", "RewardType": "other", "Value": "Relaxing getaway, quality time with family" }
+      {
+        "Id": "r1000000-0000-4000-8000-000000000010",
+        "RewardType": "other",
+        "Value": "Relaxing getaway, quality time with family",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Consequences": [
-      { "Id": "n1000000-0000-4000-8000-000000000010", "Consequence": "financial", "Value": "Lose the 100.00 non-refundable cabin deposit" }
+      {
+        "Id": "n1000000-0000-4000-8000-000000000010",
+        "Consequence": "financial",
+        "Value": "Lose the 100.00 non-refundable cabin deposit",
+        "UtcLastSorted": null,
+        "Score": null
+      }
     ],
     "Notes": "Check cabin availability before booking flights.",
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",

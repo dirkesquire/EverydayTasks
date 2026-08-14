@@ -1,0 +1,80 @@
+(async function () {
+  await DB.ensureSeeded();
+
+  const tbody = document.getElementById("loops-tbody");
+  const emptyEl = document.getElementById("empty-state");
+  const table = document.getElementById("loops-table");
+  const addBtn = document.getElementById("add-loop-btn");
+
+  let sortKey = "name";
+  let sortDir = 1;
+
+  function render() {
+    const loops = DB.getLoopsWithLastExecution().sort((a, b) => {
+      let result;
+      if (sortKey === "name") {
+        result = (a.ShortName || "").localeCompare(b.ShortName || "");
+      } else {
+        const aDate = a.lastExecution ? new Date(a.lastExecution.UtcDate) : null;
+        const bDate = b.lastExecution ? new Date(b.lastExecution.UtcDate) : null;
+        if (!aDate && !bDate) result = 0;
+        else if (!aDate) result = 1;
+        else if (!bDate) result = -1;
+        else result = aDate - bDate;
+      }
+      return result * sortDir;
+    });
+
+    tbody.innerHTML = "";
+    emptyEl.hidden = loops.length > 0;
+    table.hidden = loops.length === 0;
+
+    for (const loop of loops) {
+      const tr = document.createElement("tr");
+
+      const nameTd = document.createElement("td");
+      nameTd.textContent = loop.ShortName || "(untitled loop)";
+      tr.appendChild(nameTd);
+
+      const lastTd = document.createElement("td");
+      lastTd.appendChild(renderDateBadge(loop.lastExecution ? loop.lastExecution.UtcDate : null));
+      tr.appendChild(lastTd);
+
+      const actionTd = document.createElement("td");
+      const viewBtn = document.createElement("button");
+      viewBtn.className = "btn";
+      viewBtn.textContent = "View Executions";
+      viewBtn.addEventListener("click", () => {
+        window.location.href = `loop-executions.html?id=${encodeURIComponent(loop.Id)}`;
+      });
+      actionTd.appendChild(viewBtn);
+      tr.appendChild(actionTd);
+
+      tbody.appendChild(tr);
+    }
+
+    table.querySelectorAll("th.sortable").forEach((th) => {
+      th.classList.toggle("sorted", th.dataset.sort === sortKey);
+      th.dataset.dir = th.dataset.sort === sortKey ? (sortDir === 1 ? "asc" : "desc") : "";
+    });
+  }
+
+  table.querySelectorAll("th.sortable").forEach((th) => {
+    th.addEventListener("click", () => {
+      if (sortKey === th.dataset.sort) {
+        sortDir *= -1;
+      } else {
+        sortKey = th.dataset.sort;
+        sortDir = 1;
+      }
+      render();
+    });
+  });
+
+  addBtn.addEventListener("click", () => {
+    const loop = DB.createLoop({ ShortName: "New loop" });
+    window.location.href = `loop-executions.html?id=${encodeURIComponent(loop.Id)}`;
+  });
+
+  render();
+})();
