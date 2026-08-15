@@ -16,6 +16,11 @@
   const renameSave = document.getElementById("rename-save");
   let renamingScopeId = null;
 
+  const addScopeDialog = document.getElementById("add-scope-dialog");
+  const addScopeInput = document.getElementById("add-scope-input");
+  const addScopeCancel = document.getElementById("add-scope-cancel");
+  const addScopeSave = document.getElementById("add-scope-save");
+
   let scopes = [];
 
   async function loadScopes() {
@@ -37,6 +42,8 @@
     row.dataset.id = scope.id;
     row.querySelector('[data-field="name"]').textContent = scope.name;
     if (scope.utc_deleted) row.classList.add("is-deleted");
+    row.querySelector('[data-menu-item="delete"]').hidden = !!scope.utc_deleted;
+    row.querySelector('[data-menu-item="restore"]').hidden = !scope.utc_deleted;
 
     const menuToggle = row.querySelector("[data-menu-toggle]");
     const dropdown = row.querySelector("[data-menu-dropdown]");
@@ -59,6 +66,12 @@
       await deleteScope(scope);
     });
 
+    row.querySelector('[data-action="restore"]').addEventListener("click", async (e) => {
+      e.stopPropagation();
+      closeAllMenus();
+      await restoreScope(scope);
+    });
+
     return row;
   }
 
@@ -78,6 +91,20 @@
     renameInput.focus();
     renameInput.select();
   }
+
+  renameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      renameSave.click();
+    }
+  });
+
+  addScopeInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addScopeSave.click();
+    }
+  });
 
   renameCancel.addEventListener("click", () => renameDialog.close());
 
@@ -109,13 +136,34 @@
     render();
   }
 
-  addBtn.addEventListener("click", async () => {
-    const name = prompt("Scope name:");
-    if (!name || !name.trim()) return;
+  async function restoreScope(scope) {
+    const { error } = await supabaseClient.from("scope").update({ utc_deleted: null }).eq("id", scope.id);
+    if (error) {
+      alert("Failed to restore scope: " + error.message);
+      return;
+    }
+    scope.utc_deleted = null;
+    render();
+  }
+
+  addBtn.addEventListener("click", () => {
+    addScopeInput.value = "";
+    addScopeDialog.showModal();
+    addScopeInput.focus();
+  });
+
+  addScopeCancel.addEventListener("click", () => addScopeDialog.close());
+
+  addScopeSave.addEventListener("click", async () => {
+    const name = addScopeInput.value.trim();
+    if (!name) {
+      addScopeDialog.close();
+      return;
+    }
     const maxSequence = scopes.reduce((max, s) => Math.max(max, s.sequence || 0), 0);
     const { data, error } = await supabaseClient
       .from("scope")
-      .insert({ name: name.trim(), sequence: maxSequence + 1 })
+      .insert({ name, sequence: maxSequence + 1 })
       .select()
       .single();
     if (error) {
@@ -123,6 +171,7 @@
       return;
     }
     scopes.push(data);
+    addScopeDialog.close();
     render();
   });
 

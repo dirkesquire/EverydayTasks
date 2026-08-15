@@ -47,6 +47,17 @@
     </div>
   </dialog>
 
+  <dialog id="add-scope-dialog" class="confirm-dialog">
+    <p style="margin-bottom:8px;">New scope</p>
+    <div class="field" style="margin-bottom:18px;">
+      <input type="text" id="add-scope-input" placeholder="Scope name" />
+    </div>
+    <div class="confirm-dialog-actions">
+      <button type="button" class="btn" id="add-scope-cancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="add-scope-save">Add</button>
+    </div>
+  </dialog>
+
   <template id="scope-row-template">
     <div class="scope-row" data-row draggable="true">
       <span class="drag-handle">&#x28FF;</span>
@@ -61,7 +72,8 @@
         </button>
         <div class="scope-menu-dropdown" data-menu-dropdown hidden>
           <button type="button" data-action="rename">Rename</button>
-          <button type="button" data-action="delete">Delete</button>
+          <button type="button" data-action="delete" data-menu-item="delete">Delete</button>
+          <button type="button" data-action="restore" data-menu-item="restore">Restore</button>
         </div>
       </div>
     </div>
