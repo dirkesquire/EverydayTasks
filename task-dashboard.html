@@ -17,6 +17,13 @@
         <a href="loop-dashboard.html">Loops</a>
         <a href="scopes.html">Scopes</a>
       </nav>
+      <div class="scope-picker">
+        <button type="button" class="btn" id="scope-picker-btn">Scopes &#9662;</button>
+        <div class="scope-picker-dropdown" id="scope-picker-dropdown" hidden>
+          <div class="scope-picker-list" id="scope-picker-list"></div>
+          <a href="scopes.html" class="scope-picker-edit-link">Edit scopes</a>
+        </div>
+      </div>
       <div class="auth-status">
         <span id="current-user-name"></span>
         <button class="btn" id="logout-btn">Log out</button>
@@ -53,6 +60,8 @@
   <script src="js/auth.js"></script>
   <script src="js/dates.js"></script>
   <script src="js/db.js"></script>
+  <script src="js/scope-filter.js"></script>
+  <script src="js/scope-picker.js"></script>
   <script src="js/task-dashboard.js"></script>
 </body>
 </html>

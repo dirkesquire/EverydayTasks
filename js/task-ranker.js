@@ -241,13 +241,30 @@
 
   skipBtn.addEventListener("click", nextPair);
 
-  tasks = DB.getTasks().filter((t) => !t.UtcDone);
-  loadScores();
+  function refreshTasks() {
+    tasks = DB.getTasks()
+      .filter((t) => !t.UtcDone)
+      .filter((t) => ScopeFilter.isVisible(t.ScopeId));
+  }
 
-  if (tasks.length < 2) {
-    noTasksEl.hidden = false;
-  } else {
-    nextPair();
+  // Re-runs whenever a scope is toggled active/inactive in the header picker. Keeps the
+  // current matchup if both its tasks are still visible; otherwise starts a fresh pair.
+  function render() {
+    refreshTasks();
+    if (tasks.length < 2) {
+      noTasksEl.hidden = false;
+      matchupArea.innerHTML = "";
+      current = null;
+    } else {
+      noTasksEl.hidden = true;
+      const currentStillValid =
+        current && tasks.some((t) => t.Id === current.a.Id) && tasks.some((t) => t.Id === current.b.Id);
+      if (!currentStillValid) nextPair();
+    }
     renderRankings();
   }
+
+  loadScores();
+  ScopeFilter.onChange(render);
+  await ScopeFilter.load();
 })();

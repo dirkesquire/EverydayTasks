@@ -6,11 +6,12 @@
 
   const COLLECTIONS = ["Rewards", "Consequences"];
 
-  // Flattens every live task's Rewards/Consequences into one rankable list.
+  // Flattens every live, in-scope task's Rewards/Consequences into one rankable list.
   function collectRows(collection) {
     const rows = [];
     for (const task of DB.getTasks()) {
       if (task.UtcDone) continue;
+      if (!ScopeFilter.isVisible(task.ScopeId)) continue;
       for (const item of task[collection] || []) {
         rows.push({ item, task });
       }
@@ -208,5 +209,6 @@
     });
   }
 
-  COLLECTIONS.forEach(renderPanel);
+  ScopeFilter.onChange(() => COLLECTIONS.forEach(renderPanel));
+  await ScopeFilter.load();
 })();

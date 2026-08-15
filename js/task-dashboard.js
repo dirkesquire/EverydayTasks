@@ -34,6 +34,7 @@
     const getValue = COMPARATORS[sortKey];
     const tasks = DB.getTasks()
       .filter((t) => showDoneEl.checked || !t.UtcDone)
+      .filter((t) => ScopeFilter.isVisible(t.ScopeId))
       .sort((a, b) => compareValues(getValue(a), getValue(b)) * sortDir);
 
     tbody.innerHTML = "";
@@ -97,5 +98,6 @@
     window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}&from=dashboard`;
   });
 
-  render();
+  ScopeFilter.onChange(render);
+  await ScopeFilter.load();
 })();

@@ -36,6 +36,12 @@
         <label for="loop-notes">Loop notes</label>
         <textarea id="loop-notes" placeholder="Notes about this loop..."></textarea>
       </div>
+      <div class="field">
+        <label for="loop-scope">Scope</label>
+        <select id="loop-scope">
+          <option value="">(No scope)</option>
+        </select>
+      </div>
       <div class="row-actions">
         <button class="btn btn-danger" id="delete-loop-btn">Delete loop</button>
       </div>
@@ -84,6 +90,7 @@
   <script src="js/auth.js"></script>
   <script src="js/dates.js"></script>
   <script src="js/db.js"></script>
+  <script src="js/scope-filter.js"></script>
   <script src="js/loop-executions.js"></script>
 </body>
 </html>

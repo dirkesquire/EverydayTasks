@@ -45,6 +45,11 @@
     row.querySelector('[data-menu-item="delete"]').hidden = !!scope.utc_deleted;
     row.querySelector('[data-menu-item="restore"]').hidden = !scope.utc_deleted;
 
+    const activeCheckbox = row.querySelector('[data-field="is-active"]');
+    activeCheckbox.checked = !!scope.is_active;
+    activeCheckbox.addEventListener("click", (e) => e.stopPropagation());
+    activeCheckbox.addEventListener("change", () => toggleActive(scope, activeCheckbox));
+
     const menuToggle = row.querySelector("[data-menu-toggle]");
     const dropdown = row.querySelector("[data-menu-dropdown]");
     menuToggle.addEventListener("click", (e) => {
@@ -144,6 +149,19 @@
     }
     scope.utc_deleted = null;
     render();
+  }
+
+  async function toggleActive(scope, checkbox) {
+    const is_active = checkbox.checked;
+    checkbox.disabled = true;
+    const { error } = await supabaseClient.from("scope").update({ is_active }).eq("id", scope.id);
+    checkbox.disabled = false;
+    if (error) {
+      alert("Failed to update scope: " + error.message);
+      checkbox.checked = !is_active;
+      return;
+    }
+    scope.is_active = is_active;
   }
 
   addBtn.addEventListener("click", () => {

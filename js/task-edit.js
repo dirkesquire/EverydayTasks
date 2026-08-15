@@ -17,6 +17,7 @@
 
   const form = document.getElementById("task-form");
   const nameEl = document.getElementById("name");
+  const scopeEl = document.getElementById("scope");
   const dueDateEl = document.getElementById("due-date");
   const doneEl = document.getElementById("done-checkbox");
   const prepValueEl = document.getElementById("prep-value");
@@ -56,8 +57,28 @@
     return new Date(value).toISOString();
   }
 
+  function populateScopeOptions(scopes) {
+    scopeEl.innerHTML = '<option value="">(No scope)</option>';
+    for (const scope of scopes) {
+      const option = document.createElement("option");
+      option.value = scope.id;
+      option.textContent = scope.name;
+      scopeEl.appendChild(option);
+    }
+    // The task's scope may have been soft-deleted since it was assigned; keep it
+    // selectable so saving the form doesn't silently clear it.
+    if (task.ScopeId && !scopes.some((s) => s.id === task.ScopeId)) {
+      const option = document.createElement("option");
+      option.value = task.ScopeId;
+      option.textContent = "(deleted scope)";
+      scopeEl.appendChild(option);
+    }
+    scopeEl.value = task.ScopeId || "";
+  }
+
   function populateForm() {
     nameEl.value = task.Name || "";
+    scopeEl.value = task.ScopeId || "";
     dueDateEl.value = isoToLocalInput(task.DueDate);
     doneEl.checked = !!task.UtcDone;
     notesEl.value = task.Notes || "";
@@ -169,6 +190,7 @@
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     task.Name = nameEl.value.trim() || "(untitled task)";
+    task.ScopeId = scopeEl.value || null;
     task.DueDate = localInputToIso(dueDateEl.value);
     task.UtcDone = doneEl.checked ? task.UtcDone || new Date().toISOString() : null;
     task.Notes = notesEl.value;
@@ -201,4 +223,5 @@
   });
 
   populateForm();
+  ScopeFilter.load().then(populateScopeOptions);
 })();

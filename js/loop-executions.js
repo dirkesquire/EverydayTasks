@@ -15,6 +15,7 @@
 
   const loopNameEl = document.getElementById("loop-name");
   const loopNotesEl = document.getElementById("loop-notes");
+  const loopScopeEl = document.getElementById("loop-scope");
   const deleteLoopBtn = document.getElementById("delete-loop-btn");
   const listEl = document.getElementById("executions-list");
   const listEmptyEl = document.getElementById("executions-empty");
@@ -35,6 +36,26 @@
   function populateLoopFields() {
     loopNameEl.value = loop.ShortName || "";
     loopNotesEl.value = loop.Notes || "";
+    loopScopeEl.value = loop.ScopeId || "";
+  }
+
+  function populateScopeOptions(scopes) {
+    loopScopeEl.innerHTML = '<option value="">(No scope)</option>';
+    for (const scope of scopes) {
+      const option = document.createElement("option");
+      option.value = scope.id;
+      option.textContent = scope.name;
+      loopScopeEl.appendChild(option);
+    }
+    // The loop's scope may have been soft-deleted since it was assigned; keep it
+    // selectable so saving the form doesn't silently clear it.
+    if (loop.ScopeId && !scopes.some((s) => s.id === loop.ScopeId)) {
+      const option = document.createElement("option");
+      option.value = loop.ScopeId;
+      option.textContent = "(deleted scope)";
+      loopScopeEl.appendChild(option);
+    }
+    loopScopeEl.value = loop.ScopeId || "";
   }
 
   loopNameEl.addEventListener("change", () => {
@@ -44,6 +65,11 @@
 
   loopNotesEl.addEventListener("change", () => {
     loop.Notes = loopNotesEl.value;
+    DB.upsertLoop(loop);
+  });
+
+  loopScopeEl.addEventListener("change", () => {
+    loop.ScopeId = loopScopeEl.value || null;
     DB.upsertLoop(loop);
   });
 
@@ -182,4 +208,5 @@
   populateLoopFields();
   renderList();
   renderDetail();
+  ScopeFilter.load().then(populateScopeOptions);
 })();

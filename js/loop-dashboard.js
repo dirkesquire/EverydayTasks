@@ -13,20 +13,22 @@
   let sortDir = 1;
 
   function render() {
-    const loops = DB.getLoopsWithLastExecution().sort((a, b) => {
-      let result;
-      if (sortKey === "name") {
-        result = (a.ShortName || "").localeCompare(b.ShortName || "");
-      } else {
-        const aDate = a.lastExecution ? new Date(a.lastExecution.UtcDate) : null;
-        const bDate = b.lastExecution ? new Date(b.lastExecution.UtcDate) : null;
-        if (!aDate && !bDate) result = 0;
-        else if (!aDate) result = 1;
-        else if (!bDate) result = -1;
-        else result = aDate - bDate;
-      }
-      return result * sortDir;
-    });
+    const loops = DB.getLoopsWithLastExecution()
+      .filter((l) => ScopeFilter.isVisible(l.ScopeId))
+      .sort((a, b) => {
+        let result;
+        if (sortKey === "name") {
+          result = (a.ShortName || "").localeCompare(b.ShortName || "");
+        } else {
+          const aDate = a.lastExecution ? new Date(a.lastExecution.UtcDate) : null;
+          const bDate = b.lastExecution ? new Date(b.lastExecution.UtcDate) : null;
+          if (!aDate && !bDate) result = 0;
+          else if (!aDate) result = 1;
+          else if (!bDate) result = -1;
+          else result = aDate - bDate;
+        }
+        return result * sortDir;
+      });
 
     tbody.innerHTML = "";
     emptyEl.hidden = loops.length > 0;
@@ -73,5 +75,6 @@
     window.location.href = `loop-executions.html?id=${encodeURIComponent(loop.Id)}`;
   });
 
-  render();
+  ScopeFilter.onChange(render);
+  await ScopeFilter.load();
 })();

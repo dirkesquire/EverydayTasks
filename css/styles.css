@@ -667,6 +667,61 @@ body.is-dragging .rank-empty { display: none; }
 .scope-menu-dropdown button:hover { background: var(--accent-soft); color: var(--accent); }
 .scope-menu-dropdown button[data-action="delete"]:hover { background: var(--past-bg); color: var(--past); }
 
+.scope-picker { position: relative; }
+
+.scope-picker-dropdown[hidden] { display: none; }
+
+.scope-picker-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  min-width: 200px;
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.scope-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.scope-picker-item:hover { background: var(--accent-soft); }
+.scope-picker-item input { cursor: pointer; }
+
+.scope-picker-empty {
+  padding: 10px 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.scope-picker-edit-link {
+  display: block;
+  margin-top: 4px;
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.scope-picker-edit-link:hover { text-decoration: underline; }
+
 /* Loop executions */
 .loop-header {
   background: var(--surface);

@@ -85,6 +85,7 @@ const DB = (() => {
       Rewards: [],
       Consequences: [],
       Notes: "",
+      ScopeId: null,
       UserId: user ? user.Id : null,
       UtcDone: null,
       UtcCreated: new Date().toISOString(),
@@ -171,6 +172,7 @@ const DB = (() => {
       Id: uuid(),
       ShortName: "New loop",
       Notes: "",
+      ScopeId: null,
       Sequence: maxSequence + 1,
       ...partial,
     };
