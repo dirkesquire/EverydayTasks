@@ -57,6 +57,37 @@ nav.app-nav a {
 nav.app-nav a:hover { background: var(--accent-soft); color: var(--accent); }
 nav.app-nav a.active { background: var(--accent); color: #fff; }
 
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.auth-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#current-user-name {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.auth-main {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+.auth-form { gap: 16px; }
+.auth-form .form-actions { align-items: center; }
+
+.status-banner-error {
+  background: var(--past-bg);
+  color: var(--past);
+}
+
 main {
   max-width: 960px;
   margin: 0 auto;

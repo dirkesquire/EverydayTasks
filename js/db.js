@@ -1,11 +1,23 @@
 // Thin localStorage-backed data layer, seeded from /data/*.json on first run.
+// Storage keys are scoped per signed-in user (see init()) so multiple Supabase
+// accounts on the same browser don't see each other's data.
 const DB = (() => {
-  const KEYS = {
-    users: "tasktracker.users",
-    tasks: "tasktracker.tasks",
-    loops: "tasktracker.loops",
-    loopExecutions: "tasktracker.loopExecutions",
-  };
+  let userId = null;
+  let userName = null;
+
+  function keys() {
+    if (!userId) throw new Error("DB.init(user) must be called before using DB.");
+    return {
+      tasks: `tasktracker.${userId}.tasks`,
+      loops: `tasktracker.${userId}.loops`,
+      loopExecutions: `tasktracker.${userId}.loopExecutions`,
+    };
+  }
+
+  function init(user) {
+    userId = user.id;
+    userName = user.user_metadata?.name || user.email;
+  }
 
   function uuid() {
     if (crypto.randomUUID) return crypto.randomUUID();
@@ -22,27 +34,26 @@ const DB = (() => {
     return res.json();
   }
 
+  // New signed-in users start with the sample tasks from data/tasks.json, same as the
+  // original single-user version of this app. Loops start empty (no seed file for those).
   async function ensureSeeded() {
-    if (!localStorage.getItem(KEYS.users) || !localStorage.getItem(KEYS.tasks)) {
-      const [users, tasks] = await Promise.all([
-        fetchJson("data/users.json"),
-        fetchJson("data/tasks.json"),
-      ]);
-      if (!localStorage.getItem(KEYS.users)) localStorage.setItem(KEYS.users, JSON.stringify(users));
-      if (!localStorage.getItem(KEYS.tasks)) localStorage.setItem(KEYS.tasks, JSON.stringify(tasks));
+    const KEYS = keys();
+    if (!localStorage.getItem(KEYS.tasks)) {
+      const tasks = await fetchJson("data/tasks.json");
+      localStorage.setItem(KEYS.tasks, JSON.stringify(tasks));
     }
   }
 
   function getUsers() {
-    return JSON.parse(localStorage.getItem(KEYS.users) || "[]");
+    return userId ? [getCurrentUser()] : [];
   }
 
   function getCurrentUser() {
-    return getUsers()[0] || null;
+    return userId ? { Id: userId, Name: userName } : null;
   }
 
   function getTasks({ includeDeleted = false } = {}) {
-    const tasks = JSON.parse(localStorage.getItem(KEYS.tasks) || "[]");
+    const tasks = JSON.parse(localStorage.getItem(keys().tasks) || "[]");
     return includeDeleted ? tasks : tasks.filter((t) => !t.UtcDeleted);
   }
 
@@ -51,7 +62,7 @@ const DB = (() => {
   }
 
   function saveTasks(tasks) {
-    localStorage.setItem(KEYS.tasks, JSON.stringify(tasks));
+    localStorage.setItem(keys().tasks, JSON.stringify(tasks));
   }
 
   function upsertTask(task) {
@@ -110,11 +121,11 @@ const DB = (() => {
   // --- Loops ---
 
   function getLoops() {
-    return JSON.parse(localStorage.getItem(KEYS.loops) || "[]");
+    return JSON.parse(localStorage.getItem(keys().loops) || "[]");
   }
 
   function saveLoops(loops) {
-    localStorage.setItem(KEYS.loops, JSON.stringify(loops));
+    localStorage.setItem(keys().loops, JSON.stringify(loops));
   }
 
   function getLoopById(id) {
@@ -151,12 +162,12 @@ const DB = (() => {
   // --- Loop executions ---
 
   function getLoopExecutions({ loopId } = {}) {
-    const executions = JSON.parse(localStorage.getItem(KEYS.loopExecutions) || "[]");
+    const executions = JSON.parse(localStorage.getItem(keys().loopExecutions) || "[]");
     return loopId ? executions.filter((e) => e.LoopId === loopId) : executions;
   }
 
   function saveLoopExecutions(executions) {
-    localStorage.setItem(KEYS.loopExecutions, JSON.stringify(executions));
+    localStorage.setItem(keys().loopExecutions, JSON.stringify(executions));
   }
 
   function getLoopExecutionById(id) {
@@ -204,6 +215,7 @@ const DB = (() => {
   }
 
   return {
+    init,
     uuid,
     ensureSeeded,
     getUsers,

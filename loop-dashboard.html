@@ -9,12 +9,18 @@
 <body>
   <header class="app-header">
     <h1>My Tasks</h1>
-    <nav class="app-nav">
-      <a href="task-dashboard.html">Dashboard</a>
-      <a href="task-ranker.html">Ranker</a>
-      <a href="task-ranker2.html">Drag Ranker</a>
-      <a href="loop-dashboard.html" class="active">Loops</a>
-    </nav>
+    <div class="app-header-right">
+      <nav class="app-nav">
+        <a href="task-dashboard.html">Dashboard</a>
+        <a href="task-ranker.html">Ranker</a>
+        <a href="task-ranker2.html">Drag Ranker</a>
+        <a href="loop-dashboard.html" class="active">Loops</a>
+      </nav>
+      <div class="auth-status">
+        <span id="current-user-name"></span>
+        <button class="btn" id="logout-btn">Log out</button>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -36,6 +42,9 @@
     <div id="empty-state" class="empty-state" hidden>No loops yet. Create your first one.</div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/dates.js"></script>
   <script src="js/db.js"></script>
   <script src="js/loop-dashboard.js"></script>

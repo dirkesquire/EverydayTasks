@@ -1,4 +1,7 @@
 (async function () {
+  const user = await Auth.requireUser();
+  if (!user) return;
+  DB.init(user);
   await DB.ensureSeeded();
 
   const params = new URLSearchParams(window.location.search);
