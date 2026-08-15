@@ -33,7 +33,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-07-01T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 0,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 0
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000002",
@@ -68,7 +72,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-07-20T12:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 1,
+    "ConsequenceScore": 1,
+    "UrgencyScore": 0,
+    "TotalScore": 2
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000003",
@@ -103,7 +111,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-06-15T10:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 2,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 2
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000004",
@@ -139,7 +151,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-07-05T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 3,
+    "ConsequenceScore": 2,
+    "UrgencyScore": 0,
+    "TotalScore": 5
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000005",
@@ -174,7 +190,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-08-01T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 4,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 4
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000006",
@@ -209,7 +229,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-07-25T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 0,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 0
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000007",
@@ -244,7 +268,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-07-28T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 0,
+    "ConsequenceScore": 3,
+    "UrgencyScore": 0,
+    "TotalScore": 3
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000008",
@@ -274,7 +302,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-06-01T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 0,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 0
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000009",
@@ -307,7 +339,11 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": "2026-06-01T16:30:00Z",
     "UtcCreated": "2026-05-15T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 0,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 0
   },
   {
     "Id": "b1000000-0000-4000-8000-000000000010",
@@ -342,6 +378,10 @@
     "UserId": "a1b2c3d4-0001-4000-8000-000000000001",
     "UtcDone": null,
     "UtcCreated": "2026-07-30T09:00:00Z",
-    "UtcDeleted": null
+    "UtcDeleted": null,
+    "RewardScore": 0,
+    "ConsequenceScore": 0,
+    "UrgencyScore": 0,
+    "TotalScore": 0
   }
 ]

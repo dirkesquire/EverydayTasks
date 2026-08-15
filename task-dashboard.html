@@ -8,13 +8,14 @@
 </head>
 <body>
   <header class="app-header">
-    <h1>My Tasks</h1>
+    <h1><a href="task-dashboard.html" class="brand-link">My Tasks</a></h1>
     <div class="app-header-right">
       <nav class="app-nav">
         <a href="task-dashboard.html" class="active">Dashboard</a>
         <a href="task-ranker.html">Ranker</a>
         <a href="task-ranker2.html">Drag Ranker</a>
         <a href="loop-dashboard.html">Loops</a>
+        <a href="scopes.html">Scopes</a>
       </nav>
       <div class="auth-status">
         <span id="current-user-name"></span>
@@ -31,7 +32,19 @@
       <button class="btn btn-primary" id="add-task-btn">+ Add Task</button>
     </div>
 
-    <div id="task-list" class="task-list"></div>
+    <table class="rankings-table" id="tasks-table">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name">Name</th>
+          <th class="sortable" data-sort="dueDate">Due Date</th>
+          <th class="sortable" data-sort="rewardScore">Reward</th>
+          <th class="sortable" data-sort="consequenceScore">Consequence</th>
+          <th class="sortable" data-sort="urgencyScore">Urgency</th>
+          <th class="sortable" data-sort="totalScore">Total</th>
+        </tr>
+      </thead>
+      <tbody id="task-tbody"></tbody>
+    </table>
     <div id="empty-state" class="empty-state" hidden>No tasks yet. Add your first one.</div>
   </main>
 

@@ -27,6 +27,11 @@
   const rewardsListEl = document.getElementById("rewards-list");
   const consequencesListEl = document.getElementById("consequences-list");
   const deleteBtn = document.getElementById("delete-btn");
+  const clearDueDateBtn = document.getElementById("clear-due-date");
+  const deleteDialog = document.getElementById("delete-confirm-dialog");
+  const deleteConfirmMessage = document.getElementById("delete-confirm-message");
+  const deleteConfirmCancel = document.getElementById("delete-confirm-cancel");
+  const deleteConfirmOk = document.getElementById("delete-confirm-ok");
   const saveBanner = document.getElementById("save-banner");
   const backLink = document.getElementById("back-link");
   const cancelLink = document.getElementById("cancel-link");
@@ -90,7 +95,6 @@
   function addRewardRow(reward) {
     const tpl = document.getElementById("reward-row-template");
     const row = tpl.content.firstElementChild.cloneNode(true);
-    row.querySelector('[data-field="type"]').value = reward?.RewardType || "other";
     row.querySelector('[data-field="value"]').value = reward?.Value || "";
     row.dataset.id = reward?.Id || DB.uuid();
     row.querySelector("[data-remove]").addEventListener("click", () => row.remove());
@@ -100,7 +104,6 @@
   function addConsequenceRow(consequence) {
     const tpl = document.getElementById("consequence-row-template");
     const row = tpl.content.firstElementChild.cloneNode(true);
-    row.querySelector('[data-field="type"]').value = consequence?.Consequence || "other";
     row.querySelector('[data-field="value"]').value = consequence?.Value || "";
     row.dataset.id = consequence?.Id || DB.uuid();
     row.querySelector("[data-remove]").addEventListener("click", () => row.remove());
@@ -154,7 +157,7 @@
         const existing = rankingById.get(id);
         return {
           Id: id,
-          [typeField]: row.querySelector('[data-field="type"]').value,
+          [typeField]: existing?.[typeField] ?? "other",
           Value: row.querySelector('[data-field="value"]').value.trim(),
           UtcLastSorted: existing?.UtcLastSorted ?? null,
           Score: existing?.Score ?? null,
@@ -180,8 +183,19 @@
     setTimeout(() => (saveBanner.hidden = true), 2000);
   });
 
+  clearDueDateBtn.addEventListener("click", () => {
+    dueDateEl.value = "";
+  });
+
   deleteBtn.addEventListener("click", () => {
-    if (!confirm(`Delete "${task.Name || "this task"}"? This cannot be undone.`)) return;
+    deleteConfirmMessage.textContent = `Delete "${task.Name || "this task"}"? This cannot be undone.`;
+    deleteDialog.showModal();
+  });
+
+  deleteConfirmCancel.addEventListener("click", () => deleteDialog.close());
+
+  deleteConfirmOk.addEventListener("click", () => {
+    deleteDialog.close();
     DB.softDeleteTask(task.Id);
     window.location.href = backTarget;
   });

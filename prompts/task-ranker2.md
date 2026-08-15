@@ -1,6 +1,6 @@
 Let's try something a bit different.
 
-Model changes:
+# Model changes:
 Add a UtcLastSorted field to both Reward and Consequence.
 
 e.g. 
@@ -31,3 +31,19 @@ If it is possible to have rows with no UtcLastSorted kept in a holding area sepe
 
 Tab 2: Consequences
 This works exactly like the Rewards tab but for ranking Consequences instead of Rewards.
+
+
+# Ranking Logic:
+On task the task model, add a properties:
+- RewardScore: int
+- ConsequenceScore: int
+- UrgencyScore: int
+- TotalScore
+
+In task-ranker2.md, whenever a drag operation has completed update these Score properties on Task.
+
+When dragging Rewards, update the RewardScore to be the maximum value of the rewards for that task.
+when dragging Consequence, update the ConsequenceScore to be the maximum value of the consequences for that Task.
+Ignore UrgencyScore for now.
+For any Not Yet Ranked use a default of 0.
+Calculate TotalScore to be: RewardScore + ConsequenceScore + UrgencyScore (default 0)

@@ -89,17 +89,36 @@ const DB = (() => {
       UtcDone: null,
       UtcCreated: new Date().toISOString(),
       UtcDeleted: null,
+      RewardScore: 0,
+      ConsequenceScore: 0,
+      UrgencyScore: 0,
+      TotalScore: 0,
       ...partial,
     };
     return upsertTask(task);
   }
 
+  // Highest Score among a task's Rewards/Consequences, ignoring not-yet-ranked
+  // items (Score: null). Defaults to 0 when nothing has been ranked yet.
+  function maxItemScore(items) {
+    const scores = (items || []).map((i) => i.Score).filter((s) => typeof s === "number");
+    return scores.length ? Math.max(...scores) : 0;
+  }
+
+  function recalculateTaskScores(task) {
+    task.RewardScore = maxItemScore(task.Rewards);
+    task.ConsequenceScore = maxItemScore(task.Consequences);
+    task.TotalScore = task.RewardScore + task.ConsequenceScore + (task.UrgencyScore || 0);
+  }
+
   // Writes UtcLastSorted/Score onto many Rewards/Consequences in a single pass, since one
   // drag re-scores every ranked row. Each update is
   // { taskId, collection: "Rewards"|"Consequences", itemId, UtcLastSorted, Score }.
+  // Afterwards, every affected task's RewardScore/ConsequenceScore/TotalScore are recalculated.
   function applyRankingUpdates(updates) {
     const tasks = getTasks({ includeDeleted: true });
     const byTaskId = new Map(tasks.map((t) => [t.Id, t]));
+    const affectedTaskIds = new Set();
     for (const update of updates) {
       const task = byTaskId.get(update.taskId);
       if (!task) continue;
@@ -107,6 +126,10 @@ const DB = (() => {
       if (!item) continue;
       item.UtcLastSorted = update.UtcLastSorted;
       item.Score = update.Score;
+      affectedTaskIds.add(task.Id);
+    }
+    for (const taskId of affectedTaskIds) {
+      recalculateTaskScores(byTaskId.get(taskId));
     }
     saveTasks(tasks);
   }

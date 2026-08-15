@@ -8,13 +8,14 @@
 </head>
 <body>
   <header class="app-header">
-    <h1>My Tasks</h1>
+    <h1><a href="task-dashboard.html" class="brand-link">My Tasks</a></h1>
     <div class="app-header-right">
       <nav class="app-nav">
         <a href="task-dashboard.html">Dashboard</a>
         <a href="task-ranker.html">Ranker</a>
         <a href="task-ranker2.html">Drag Ranker</a>
         <a href="loop-dashboard.html" class="active">Loops</a>
+        <a href="scopes.html">Scopes</a>
       </nav>
       <div class="auth-status">
         <span id="current-user-name"></span>
@@ -34,7 +35,6 @@
         <tr>
           <th class="sortable" data-sort="name">Name</th>
           <th class="sortable" data-sort="lastExecuted">Last Executed</th>
-          <th></th>
         </tr>
       </thead>
       <tbody id="loops-tbody"></tbody>

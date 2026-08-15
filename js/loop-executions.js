@@ -38,7 +38,7 @@
   }
 
   loopNameEl.addEventListener("change", () => {
-    loop.ShortName = loopNameEl.value.trim() || "New loop";
+    loop.ShortName = loopNameEl.value.trim() || "";
     DB.upsertLoop(loop);
   });
 

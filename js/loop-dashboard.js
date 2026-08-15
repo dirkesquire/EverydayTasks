@@ -34,6 +34,10 @@
 
     for (const loop of loops) {
       const tr = document.createElement("tr");
+      tr.className = "row-clickable";
+      tr.addEventListener("click", () => {
+        window.location.href = `loop-executions.html?id=${encodeURIComponent(loop.Id)}`;
+      });
 
       const nameTd = document.createElement("td");
       nameTd.textContent = loop.ShortName || "(untitled loop)";
@@ -42,16 +46,6 @@
       const lastTd = document.createElement("td");
       lastTd.appendChild(renderDateBadge(loop.lastExecution ? loop.lastExecution.UtcDate : null));
       tr.appendChild(lastTd);
-
-      const actionTd = document.createElement("td");
-      const viewBtn = document.createElement("button");
-      viewBtn.className = "btn";
-      viewBtn.textContent = "View Executions";
-      viewBtn.addEventListener("click", () => {
-        window.location.href = `loop-executions.html?id=${encodeURIComponent(loop.Id)}`;
-      });
-      actionTd.appendChild(viewBtn);
-      tr.appendChild(actionTd);
 
       tbody.appendChild(tr);
     }
