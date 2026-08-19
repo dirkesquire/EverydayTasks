@@ -9,7 +9,7 @@
   let task = taskId ? DB.getTaskById(taskId) : null;
 
   if (!task) {
-    task = DB.createTask({ Name: "" });
+    task = await DB.createTask({ Name: "" });
     const url = new URL(window.location.href);
     url.searchParams.set("id", task.Id);
     window.history.replaceState({}, "", url);
@@ -34,13 +34,16 @@
   const deleteConfirmCancel = document.getElementById("delete-confirm-cancel");
   const deleteConfirmOk = document.getElementById("delete-confirm-ok");
   const saveBanner = document.getElementById("save-banner");
+  const saveBannerBottom = document.getElementById("save-banner-bottom");
   const backLink = document.getElementById("back-link");
+  const backLinkBottom = document.getElementById("back-link-bottom");
   const cancelLink = document.getElementById("cancel-link");
 
   // Came here from a ranker? Send Back/Cancel/Delete there instead of always to the dashboard.
   const BACK_TARGETS = { ranker: "task-ranker.html", ranker2: "task-ranker2.html" };
   const backTarget = BACK_TARGETS[params.get("from")] || "task-dashboard.html";
   backLink.href = backTarget;
+  backLinkBottom.href = backTarget;
   cancelLink.href = backTarget;
 
   // datetime-local inputs work in local wall-clock time with no timezone,
@@ -187,7 +190,7 @@
       .filter((item) => item.Value);
   }
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     task.Name = nameEl.value.trim() || "(untitled task)";
     task.ScopeId = scopeEl.value || null;
@@ -200,9 +203,13 @@
     task.Rewards = collectItems(rewardsListEl, "RewardType", task.Rewards);
     task.Consequences = collectItems(consequencesListEl, "Consequence", task.Consequences);
 
-    DB.upsertTask(task);
+    await DB.upsertTask(task);
     saveBanner.hidden = false;
-    setTimeout(() => (saveBanner.hidden = true), 2000);
+    saveBannerBottom.hidden = false;
+    setTimeout(() => {
+      saveBanner.hidden = true;
+      saveBannerBottom.hidden = true;
+    }, 2000);
   });
 
   clearDueDateBtn.addEventListener("click", () => {
@@ -216,9 +223,9 @@
 
   deleteConfirmCancel.addEventListener("click", () => deleteDialog.close());
 
-  deleteConfirmOk.addEventListener("click", () => {
+  deleteConfirmOk.addEventListener("click", async () => {
     deleteDialog.close();
-    DB.softDeleteTask(task.Id);
+    await DB.softDeleteTask(task.Id);
     window.location.href = backTarget;
   });
 

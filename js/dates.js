@@ -15,6 +15,11 @@ const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
   minute: "2-digit",
 });
 
+const timeFormatter = new Intl.DateTimeFormat(undefined, {
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 const relativeFormatter = new Intl.RelativeTimeFormat(undefined, {
   numeric: "auto",
 });
@@ -49,6 +54,11 @@ function formatDate(isoString) {
 function formatDateTime(isoString) {
   if (!isoString) return "";
   return dateTimeFormatter.format(new Date(isoString));
+}
+
+function formatTime(isoString) {
+  if (!isoString) return "";
+  return timeFormatter.format(new Date(isoString));
 }
 
 // Formats a relative-time label, e.g. "in 3 days" / "2 days ago",

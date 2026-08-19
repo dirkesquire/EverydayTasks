@@ -93,8 +93,8 @@
   });
 
   showDoneEl.addEventListener("change", render);
-  addBtn.addEventListener("click", () => {
-    const task = DB.createTask({ Name: "New task" });
+  addBtn.addEventListener("click", async () => {
+    const task = await DB.createTask({ Name: "New task" });
     window.location.href = `task-edit.html?id=${encodeURIComponent(task.Id)}&from=dashboard`;
   });
 

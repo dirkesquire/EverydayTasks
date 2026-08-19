@@ -779,6 +779,18 @@ body.is-dragging .rank-empty { display: none; }
 .exec-row:hover { border-color: var(--accent); }
 .exec-row.is-selected { border-color: var(--accent); background: var(--accent-soft); }
 .exec-row-duration { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.exec-row-left { display: flex; align-items: center; gap: 8px; }
+
+.pill {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pill-running { background: var(--soon-bg); color: var(--soon); }
 
 .exec-detail-header {
   display: flex;
@@ -797,11 +809,20 @@ body.is-dragging .rank-empty { display: none; }
   margin-bottom: 16px;
 }
 
+.timer-info {
+  flex: 1;
+}
+
 .timer-display {
   font-size: 22px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  flex: 1;
+}
+
+.timer-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
 }
 
 #execution-detail .field { margin-bottom: 14px; }

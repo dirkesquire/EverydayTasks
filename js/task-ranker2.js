@@ -125,7 +125,7 @@
     return closest;
   }
 
-  function finishDrag() {
+  async function finishDrag() {
     if (!draggingEl) return;
     const row = draggingEl;
     draggingEl = null;
@@ -161,7 +161,7 @@
       });
     }
 
-    DB.applyRankingUpdates(updates);
+    await DB.applyRankingUpdates(updates);
     renderPanel(collection);
   }
 

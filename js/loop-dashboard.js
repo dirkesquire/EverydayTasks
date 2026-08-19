@@ -45,6 +45,11 @@
       nameTd.textContent = loop.ShortName || "(untitled loop)";
       tr.appendChild(nameTd);
 
+      const scopeTd = document.createElement("td");
+      const scope = ScopeFilter.getScopes().find((s) => s.id === loop.ScopeId);
+      scopeTd.textContent = scope ? scope.name : "—";
+      tr.appendChild(scopeTd);
+
       const lastTd = document.createElement("td");
       lastTd.appendChild(renderDateBadge(loop.lastExecution ? loop.lastExecution.UtcDate : null));
       tr.appendChild(lastTd);
@@ -70,8 +75,8 @@
     });
   });
 
-  addBtn.addEventListener("click", () => {
-    const loop = DB.createLoop({ ShortName: "New loop" });
+  addBtn.addEventListener("click", async () => {
+    const loop = await DB.createLoop({ ShortName: "" });
     window.location.href = `loop-executions.html?id=${encodeURIComponent(loop.Id)}`;
   });
 

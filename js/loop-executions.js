@@ -24,14 +24,23 @@
   const detailEl = document.getElementById("execution-detail");
   const dateLabelEl = document.getElementById("exec-date-label");
   const timerDisplayEl = document.getElementById("timer-display");
+  const timerMetaEl = document.getElementById("timer-meta");
   const startBtn = document.getElementById("start-timer-btn");
   const stopBtn = document.getElementById("stop-timer-btn");
   const execNotesEl = document.getElementById("exec-notes");
   const execNotesNextEl = document.getElementById("exec-notes-next");
   const deleteExecBtn = document.getElementById("delete-exec-btn");
+  const deleteExecDialog = document.getElementById("delete-exec-confirm-dialog");
+  const deleteExecCancel = document.getElementById("delete-exec-confirm-cancel");
+  const deleteExecOk = document.getElementById("delete-exec-confirm-ok");
+  const stopTimerDialog = document.getElementById("stop-timer-dialog");
+  const stopTimerHoursEl = document.getElementById("stop-timer-hours");
+  const stopTimerCancel = document.getElementById("stop-timer-cancel");
+  const stopTimerConfirm = document.getElementById("stop-timer-confirm");
 
   let selectedId = null;
   let tickHandle = null;
+  let stoppingId = null;
 
   function populateLoopFields() {
     loopNameEl.value = loop.ShortName || "";
@@ -58,24 +67,24 @@
     loopScopeEl.value = loop.ScopeId || "";
   }
 
-  loopNameEl.addEventListener("change", () => {
+  loopNameEl.addEventListener("change", async () => {
     loop.ShortName = loopNameEl.value.trim() || "";
-    DB.upsertLoop(loop);
+    await DB.upsertLoop(loop);
   });
 
-  loopNotesEl.addEventListener("change", () => {
+  loopNotesEl.addEventListener("change", async () => {
     loop.Notes = loopNotesEl.value;
-    DB.upsertLoop(loop);
+    await DB.upsertLoop(loop);
   });
 
-  loopScopeEl.addEventListener("change", () => {
+  loopScopeEl.addEventListener("change", async () => {
     loop.ScopeId = loopScopeEl.value || null;
-    DB.upsertLoop(loop);
+    await DB.upsertLoop(loop);
   });
 
-  deleteLoopBtn.addEventListener("click", () => {
+  deleteLoopBtn.addEventListener("click", async () => {
     if (!confirm(`Delete "${loop.ShortName || "this loop"}" and all its executions? This cannot be undone.`)) return;
-    DB.deleteLoop(loop.Id);
+    await DB.deleteLoop(loop.Id);
     window.location.href = "loop-dashboard.html";
   });
 
@@ -102,9 +111,21 @@
       row.className = "exec-row" + (execution.Id === selectedId ? " is-selected" : "");
       row.addEventListener("click", () => selectExecution(execution.Id));
 
+      const leftGroup = document.createElement("div");
+      leftGroup.className = "exec-row-left";
+
       const dateSpan = document.createElement("span");
       dateSpan.textContent = formatDate(execution.UtcDate);
-      row.appendChild(dateSpan);
+      leftGroup.appendChild(dateSpan);
+
+      if (execution.UtcStartTime) {
+        const runningPill = document.createElement("span");
+        runningPill.className = "pill pill-running";
+        runningPill.textContent = "Started";
+        leftGroup.appendChild(runningPill);
+      }
+
+      row.appendChild(leftGroup);
 
       const durationSpan = document.createElement("span");
       durationSpan.className = "exec-row-duration";
@@ -120,6 +141,16 @@
       clearInterval(tickHandle);
       tickHandle = null;
     }
+  }
+
+  function updateTimerDisplay(execution) {
+    timerDisplayEl.textContent = formatHours(totalSeconds(execution));
+    if (!execution.UtcStartTime) return;
+    const elapsedSeconds = (Date.now() - new Date(execution.UtcStartTime).getTime()) / 1000;
+    timerMetaEl.textContent =
+      `Started at ${formatTime(execution.UtcStartTime)} · ` +
+      `${formatHours(execution.UtcDurationSeconds || 0)} already logged · ` +
+      `${formatHours(elapsedSeconds)} elapsed`;
   }
 
   function renderDetail() {
@@ -142,12 +173,11 @@
     const isRunning = !!execution.UtcStartTime;
     startBtn.hidden = isRunning;
     stopBtn.hidden = !isRunning;
+    timerMetaEl.hidden = !isRunning;
 
-    timerDisplayEl.textContent = formatHours(totalSeconds(execution));
+    updateTimerDisplay(execution);
     if (isRunning) {
-      tickHandle = setInterval(() => {
-        timerDisplayEl.textContent = formatHours(totalSeconds(execution));
-      }, 1000);
+      tickHandle = setInterval(() => updateTimerDisplay(execution), 1000);
     }
   }
 
@@ -157,16 +187,16 @@
     renderDetail();
   }
 
-  newExecBtn.addEventListener("click", () => {
-    const execution = DB.createLoopExecution({ LoopId: loop.Id });
+  newExecBtn.addEventListener("click", async () => {
+    const execution = await DB.createLoopExecution({ LoopId: loop.Id });
     selectExecution(execution.Id);
   });
 
-  startBtn.addEventListener("click", () => {
+  startBtn.addEventListener("click", async () => {
     const execution = DB.getLoopExecutionById(selectedId);
     if (!execution) return;
     execution.UtcStartTime = new Date().toISOString();
-    DB.upsertLoopExecution(execution);
+    await DB.upsertLoopExecution(execution);
     renderList();
     renderDetail();
   });
@@ -174,32 +204,55 @@
   stopBtn.addEventListener("click", () => {
     const execution = DB.getLoopExecutionById(selectedId);
     if (!execution || !execution.UtcStartTime) return;
-    const elapsedSeconds = (Date.now() - new Date(execution.UtcStartTime).getTime()) / 1000;
-    execution.UtcDurationSeconds = (execution.UtcDurationSeconds || 0) + elapsedSeconds;
+    stoppingId = selectedId;
+    const elapsedHours = (Date.now() - new Date(execution.UtcStartTime).getTime()) / 1000 / 3600;
+    stopTimerHoursEl.value = elapsedHours.toFixed(2);
+    stopTimerDialog.showModal();
+  });
+
+  stopTimerCancel.addEventListener("click", () => {
+    stoppingId = null;
+    stopTimerDialog.close();
+  });
+
+  stopTimerConfirm.addEventListener("click", async () => {
+    const execution = stoppingId ? DB.getLoopExecutionById(stoppingId) : null;
+    stopTimerDialog.close();
+    if (!execution) return;
+    const hoursToAdd = Math.max(0, parseFloat(stopTimerHoursEl.value) || 0);
+    execution.UtcDurationSeconds = (execution.UtcDurationSeconds || 0) + hoursToAdd * 3600;
     execution.UtcStartTime = null;
-    DB.upsertLoopExecution(execution);
+    stoppingId = null;
+    await DB.upsertLoopExecution(execution);
     renderList();
     renderDetail();
   });
 
-  execNotesEl.addEventListener("change", () => {
+  execNotesEl.addEventListener("change", async () => {
     const execution = DB.getLoopExecutionById(selectedId);
     if (!execution) return;
     execution.Notes = execNotesEl.value;
-    DB.upsertLoopExecution(execution);
+    await DB.upsertLoopExecution(execution);
   });
 
-  execNotesNextEl.addEventListener("change", () => {
+  execNotesNextEl.addEventListener("change", async () => {
     const execution = DB.getLoopExecutionById(selectedId);
     if (!execution) return;
     execution.NotesForNextLoop = execNotesNextEl.value;
-    DB.upsertLoopExecution(execution);
+    await DB.upsertLoopExecution(execution);
   });
 
   deleteExecBtn.addEventListener("click", () => {
     if (!selectedId) return;
-    if (!confirm("Delete this execution? This cannot be undone.")) return;
-    DB.deleteLoopExecution(selectedId);
+    deleteExecDialog.showModal();
+  });
+
+  deleteExecCancel.addEventListener("click", () => deleteExecDialog.close());
+
+  deleteExecOk.addEventListener("click", async () => {
+    deleteExecDialog.close();
+    if (!selectedId) return;
+    await DB.deleteLoopExecution(selectedId);
     selectedId = null;
     renderList();
     renderDetail();

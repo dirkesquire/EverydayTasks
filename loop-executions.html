@@ -66,7 +66,10 @@
           </div>
 
           <div class="timer-panel">
-            <div class="timer-display" id="timer-display">0.00 h</div>
+            <div class="timer-info">
+              <div class="timer-display" id="timer-display">0.00 h</div>
+              <div class="timer-meta" id="timer-meta" hidden></div>
+            </div>
             <button class="btn btn-primary" id="start-timer-btn">Start Timer</button>
             <button class="btn btn-danger" id="stop-timer-btn" hidden>Stop Timer</button>
           </div>
@@ -84,6 +87,26 @@
       </div>
     </div>
   </main>
+
+  <dialog id="delete-exec-confirm-dialog" class="confirm-dialog">
+    <p>Delete this execution? This cannot be undone.</p>
+    <div class="confirm-dialog-actions">
+      <button type="button" class="btn" id="delete-exec-confirm-cancel">Cancel</button>
+      <button type="button" class="btn btn-danger" id="delete-exec-confirm-ok">Delete</button>
+    </div>
+  </dialog>
+
+  <dialog id="stop-timer-dialog" class="confirm-dialog">
+    <p>Add this time to the execution's logged hours?</p>
+    <div class="field">
+      <label for="stop-timer-hours">Hours to add</label>
+      <input type="number" id="stop-timer-hours" step="0.01" min="0" />
+    </div>
+    <div class="confirm-dialog-actions">
+      <button type="button" class="btn" id="stop-timer-cancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="stop-timer-confirm">Add Time</button>
+    </div>
+  </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="js/supabase-client.js"></script>
